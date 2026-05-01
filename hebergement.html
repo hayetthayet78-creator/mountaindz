@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hébergements — MountainDZ</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="hebergement.css" />
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════
+     HEADER — identical structure to all pages
+══════════════════════════════════════ -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <a href="accueil.html" style="text-decoration:none;color:inherit;">Mountain<span>DZ</span></a>
+      </div>
+
+      <nav class="nav-main">
+        <a href="accueil.html">Accueil</a>
+        <a href="index.html">Activités</a>
+        <a href="boutique.html">Boutique</a>
+        <a href="hebergement.html" class="active">Hébergements</a>
+        <a href="restaurant.html">Restaurants & Cafés</a>
+      </nav>
+
+      <div class="nav-right">
+        <!-- Account dropdown — same markup as all pages -->
+        <div class="account-wrap" id="accountWrap">
+          <button class="btn-account" onclick="toggleAccountDropdown(event)">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+            </svg>
+            Mon compte
+            <svg class="account-chevron" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"
+              viewBox="0 0 24 24">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+
+          <div class="account-dropdown" id="accountDropdown">
+            <div class="dropdown-arrow"></div>
+            <div class="dropdown-brand">
+              <div>
+                <div class="dropdown-brand-name">Mountain<span>DZ</span></div>
+                <div class="dropdown-brand-sub">Espace personnel</div>
+              </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <button class="btn-connect" onclick="window.location.href='signin.html'">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4" />
+                <polyline points="10 17 15 12 10 7" />
+                <line x1="15" y1="12" x2="3" y2="12" />
+              </svg>
+              Se connecter
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+            <div class="dropdown-new-client">
+              <p>Nouveau client chez MountainDZ ?</p>
+              <a href="signin.html" class="dropdown-register-link">
+                Créer mon compte
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-links">
+              <a href="#" class="dropdown-link" onclick="closeAccountDropdown()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <path d="M16 10a4 4 0 01-8 0" />
+                </svg>
+                Mes commandes
+              </a>
+              <a href="#" class="dropdown-link" onclick="closeAccountDropdown()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <rect x="3" y="4" width="18" height="18" rx="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+                Mes réservations
+              </a>
+              <a href="#" class="dropdown-link" onclick="closeAccountDropdown()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path
+                    d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+                </svg>
+                Mes favoris
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-reserve-nav" onclick="window.location.href='hebergement.html#hebergements'">Voir les hébergements →</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+  <section class="heb-hero">
+    <div class="heb-hero-bg"></div>
+    <div class="heb-hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Saison 2026 ouverte
+      </div>
+      <h1>Trouvez votre <em>refuge</em><br>en montagne algérienne</h1>
+      <p>Des chalets authentiques aux hôtels panoramiques — votre havre de paix au cœur des sommets.</p>
+
+    </div>
+    <div class="hero-scroll">Défiler</div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+     MAIN SECTION
+══════════════════════════════════════ -->
+  <section class="heb-section" id="hebergements">
+
+    <!-- Search bar -->
+    <div class="heb-search-wrap">
+      <div class="heb-search-card">
+        <div class="heb-search-field">
+          <label>📍 STATION</label>
+          <select id="searchStation">
+            <option>Toutes les stations</option>
+            <option>Tikjda – Bouira</option>
+            <option>Chréa – Blida</option>
+            <option>Tala Guilef – Béjaïa</option>
+            <option>Babor – Sétif</option>
+
+          </select>
+        </div>
+        <div class="heb-search-divider"></div>
+        <div class="heb-search-field">
+          <label>📅 ARRIVÉE</label>
+          <input type="date" id="searchArrival" />
+        </div>
+        <div class="heb-search-divider"></div>
+        <div class="heb-search-field">
+          <label>📅 DÉPART</label>
+          <input type="date" id="searchDeparture" />
+        </div>
+        <div class="heb-search-divider"></div>
+        <div class="heb-search-field">
+          <label>👥 VOYAGEURS</label>
+          <select id="searchGuests">
+            <option>1 voyageur</option>
+            <option selected>2 voyageurs</option>
+            <option>3–4 voyageurs</option>
+            <option>5+ voyageurs</option>
+          </select>
+        </div>
+        <button class="heb-search-btn" id="searchBtn">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" />
+            <path d="M21 21l-4.35-4.35" />
+          </svg>
+          Rechercher
+        </button>
+      </div>
+    </div>
+
+    <!-- Section header -->
+    <div class="section-header" style="text-align:center;margin-bottom:48px;">
+      <span class="section-label">Partout en Algérie</span>
+      <h2 class="section-title">Nos <em style="font-style:normal;color:#3b8bfa;">Hébergements</em></h2>
+      <p class="section-sub">Hôtels, chalets et tentes de luxe — soigneusement sélectionnés pour votre confort en
+        altitude.</p>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="tabs" id="filterTabs">
+      <button class="tab-btn active" onclick="setFilter('tous', this)">🏠 Tous</button>
+      <button class="tab-btn" onclick="setFilter('hotel', this)">🏨 Hôtels</button>
+      <button class="tab-btn" onclick="setFilter('chalet', this)">🏡 Chalets</button>
+      <button class="tab-btn" onclick="setFilter('tente', this)">⛺ Tentes de Luxe</button>
+    </div>
+
+    <!-- Results count -->
+    <div class="heb-results-info">
+      <span id="resultsCount">6 hébergements</span>
+    </div>
+
+    <!-- Cards grid -->
+    <div class="heb-cards-grid" id="cardsGrid">
+
+      <!-- CARD 1 -->
+      <div class="heb-card" data-type="hotel">
+        <div class="heb-card-img">
+          <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80" alt="Hôtel Tikjda"
+            loading="lazy" />
+          <span class="heb-type-badge">🏨 Hôtel</span>
+          <span class="heb-rating-badge">⭐ 4.8</span>
+        </div>
+        <div class="heb-card-body">
+          <div class="heb-card-location">📍 Tikjda, Bouira</div>
+          <div class="heb-card-title">Hôtel Panorama Tikjda</div>
+          <div class="heb-card-desc">Vue imprenable sur le Djurdjura. Chambres spacieuses avec balcon privatif et accès
+            direct aux pistes de ski.</div>
+          <div class="heb-amenities">
+            <span>📶 WiFi</span><span>🍽️ Restaurant</span><span>🚿 Salle de bain</span><span>🅿️ Parking</span><span>♨️
+              Hammam</span>
+          </div>
+        </div>
+        <div class="heb-card-footer">
+          <div class="heb-price">15 000 DZD <small>/ nuit</small></div>
+          <button class="btn-heb-reserve"
+            data-img="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=900&q=80"
+            data-title="Hôtel Panorama Tikjda" data-location="📍 Tikjda, Bouira" data-rating="⭐ 4.8 · 124 avis"
+            data-price="15000"
+            data-amenities='["📶 WiFi haut débit","🍽️ Restaurant gastronomique","🚿 Salle de bain privée","🅿️ Parking gratuit","♨️ Hammam & sauna","🛎️ Room service 24h","❄️ Climatisation","📺 TV satellite"]'
+            data-info='["🏔️ Altitude : 1 500 m","👥 Capacité : 2–4 personnes","🕐 Check-in : 14h00","🕑 Check-out : 12h00","🐕 Animaux non admis","🚭 Non-fumeur"]'>
+            Réserver →
+          </button>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="heb-card" data-type="chalet">
+        <div class="heb-card-img">
+          <img
+            src="https://a0.muscache.com/im/pictures/hosting/Hosting-1196656856173233757/original/71a50ccf-eba7-4fc6-8d25-adee120d11a6.jpeg"
+            alt="Chalet Chréa" loading="lazy" />
+          <span class="heb-type-badge">🏡 Chalet</span>
+          <span class="heb-rating-badge">⭐ 4.9</span>
+        </div>
+        <div class="heb-card-body">
+          <div class="heb-card-location">📍 Chréa, Blida</div>
+          <div class="heb-card-title">Chalet Les Cèdres</div>
+          <div class="heb-card-desc">Niché dans une forêt de cèdres centenaires, ce chalet authentique offre chaleur et
+            authenticité berbère.</div>
+          <div class="heb-amenities">
+            <span>📶 WiFi</span><span>🔥 Cheminée</span><span>🛁 Baignoire</span><span>🍳 Cuisine</span><span>🌲
+              Terrasse</span>
+          </div>
+        </div>
+        <div class="heb-card-footer">
+          <div class="heb-price">7 500 DZD <small>/ nuit</small></div>
+          <button class="btn-heb-reserve"
+            data-img="https://a0.muscache.com/im/pictures/hosting/Hosting-1196656856173233757/original/71a50ccf-eba7-4fc6-8d25-adee120d11a6.jpeg"
+            data-title="Chalet Les Cèdres" data-location="📍 Chréa, Blida" data-rating="⭐ 4.9 · 87 avis"
+            data-price="7500"
+            data-amenities='["📶 WiFi","🔥 Cheminée en pierre","🛁 Baignoire balnéo","🍳 Cuisine équipée","🌲 Grande terrasse","🪵 Bois de chauffage inclus","🎿 Accès direct pistes","🅿️ Parking privé"]'
+            data-info='["🏔️ Altitude : 1 800 m","👥 Capacité : 2–6 personnes","🕐 Check-in : 15h00","🕑 Check-out : 11h00","🐕 Animaux admis","🚭 Non-fumeur intérieur"]'>
+            Réserver →
+          </button>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="heb-card" data-type="tente">
+        <div class="heb-card-img">
+          <img src="https://images.unsplash.com/photo-1478827536114-da961b7f86d2?w=900&q=80" alt="Glamping"
+            loading="lazy" />
+          <span class="heb-type-badge">⛺ Tente Luxe</span>
+          <span class="heb-rating-badge">⭐ 4.7</span>
+        </div>
+        <div class="heb-card-body">
+          <div class="heb-card-location">📍 Tala Guilef, Béjaïa</div>
+          <div class="heb-card-title">Glamping Étoiles d'Atlas</div>
+          <div class="heb-card-desc">Expérience glamping unique sous les étoiles de Kabylie. Literie haut de gamme, vue
+            à 360° sur les montagnes.</div>
+          <div class="heb-amenities">
+            <span>🌟 Vue panoramique</span><span>🛏️ Lit King</span><span>🚿 Douche privée</span><span>☕ Petit-déj
+              inclus</span>
+          </div>
+        </div>
+        <div class="heb-card-footer">
+          <div class="heb-price">4 500 DZD <small>/ nuit</small></div>
+          <button class="btn-heb-reserve"
+            data-img="https://images.unsplash.com/photo-1478827536114-da961b7f86d2?w=900&q=80"
+            data-title="Glamping Étoiles d'Atlas" data-location="📍 Tala Guilef, Béjaïa" data-rating="⭐ 4.7 · 53 avis"
+            data-price="4500"
+            data-amenities='["🌟 Vue panoramique 360°","🛏️ Lit King Size","🚿 Douche chaude privée","☕ Petit-déjeuner inclus","🕯️ Éclairage LED","🧸 Literie premium","🌙 Ciel étoilé garanti","🥾 Sentier de randonnée"]'
+            data-info='["🏔️ Altitude : 1 200 m","👥 Capacité : 2 personnes","🕐 Check-in : 16h00","🕑 Check-out : 10h00","🐕 Animaux non admis","🔥 Feu de camp le soir"]'>
+            Réserver →
+          </button>
+        </div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="heb-card" data-type="hotel">
+        <div class="heb-card-img">
+          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80" alt="Hôtel Belvédère"
+            loading="lazy" />
+          <span class="heb-type-badge">🏨 Hôtel</span>
+          <span class="heb-rating-badge">⭐ 4.6</span>
+        </div>
+        <div class="heb-card-body">
+          <div class="heb-card-location">📍 Babor, Sétif</div>
+          <div class="heb-card-title">Hôtel Le Belvédère</div>
+          <div class="heb-card-desc">Hôtel colonial rénové avec vue sur la mer et les montagnes. Spa, piscine chauffée
+            et cuisine méditerranéenne.</div>
+          <div class="heb-amenities">
+            <span>📶 WiFi</span><span>🏊 Piscine</span><span>💆 Spa</span><span>🍽️ Restaurant</span><span>🚿 Salle de
+              bain</span>
+          </div>
+        </div>
+        <div class="heb-card-footer">
+          <div class="heb-price">23 000 DZD <small>/ nuit</small></div>
+          <button class="btn-heb-reserve"
+            data-img="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80"
+            data-title="Hôtel Le Belvédère" data-location="📍 Babor, Sétif" data-rating="⭐ 4.6 · 201 avis"
+            data-price="23000"
+            data-amenities='["📶 WiFi fibre","🏊 Piscine chauffée","💆 Spa & massages","🍽️ Restaurant gastronomique","🚿 Salle de bain marbre","🛎️ Conciergerie","🎾 Court de tennis","🅿️ Valet parking"]'
+            data-info='["🌊 Vue mer & montagne","👥 Capacité : 2–3 personnes","🕐 Check-in : 14h00","🕑 Check-out : 12h00","🐕 Animaux non admis","🚭 Non-fumeur"]'>
+            Réserver →
+          </button>
+        </div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="heb-card" data-type="chalet">
+        <div class="heb-card-img">
+          <img src="https://www.lodgelesmurailles.fr/wp-content/uploads/2019/02/chalet-luxe-manigod-10-1024x640.jpg"
+            alt="Chalet Kabyle" loading="lazy" />
+          <span class="heb-type-badge">🏡 Chalet</span>
+          <span class="heb-rating-badge">⭐ 4.9</span>
+        </div>
+        <div class="heb-card-body">
+          <div class="heb-card-location">📍 Aïn El Hammam, Tizi Ouzou</div>
+          <div class="heb-card-title">Chalet Kabyle Authentique</div>
+          <div class="heb-card-desc">Chalet traditionnel kabyle entièrement rénové, artisanat local et jardin floral en
+            terrasse de montagne.</div>
+          <div class="heb-amenities">
+            <span>📶 WiFi</span><span>🔥 Cheminée</span><span>🛁 Baignoire</span><span>🌸 Jardin</span><span>🍳
+              Cuisine</span>
+          </div>
+        </div>
+        <div class="heb-card-footer">
+          <div class="heb-price">9 900 DZD <small>/ nuit</small></div>
+          <button class="btn-heb-reserve"
+            data-img="https://www.lodgelesmurailles.fr/wp-content/uploads/2019/02/chalet-luxe-manigod-10-1024x640.jpg"
+            data-title="Chalet Kabyle Authentique" data-location="📍 Aïn El Hammam, Tizi Ouzou"
+            data-rating="⭐ 4.9 · 66 avis" data-price="9900"
+            data-amenities='["📶 WiFi","🔥 Cheminée traditionnelle","🛁 Baignoire balnéo","🌸 Jardin privatif","🍳 Cuisine équipée","🎨 Déco artisanale kabyle","🪟 Vue montagne","🅿️ Parking"]'
+            data-info='["🏔️ Altitude : 1 100 m","👥 Capacité : 2–8 personnes","🕐 Check-in : 15h00","🕑 Check-out : 11h00","🐕 Animaux admis","🔑 Accès autonome"]'>
+            Réserver →
+          </button>
+        </div>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="heb-card" data-type="tente">
+        <div class="heb-card-img">
+          <img src="https://tse4.mm.bing.net/th/id/OIP.-kObnOVhus615tTSwW8dzQHaEK?rs=1&pid=ImgDetMain" alt="Camp Hoggar"
+            loading="lazy" />
+          <span class="heb-type-badge">⛺ Tente Luxe</span>
+          <span class="heb-rating-badge" style="color:#ffd166;">⭐ 5.0</span>
+        </div>
+        <div class="heb-card-body">
+          <div class="heb-card-location">📍 Tamanrasset, Hoggar</div>
+          <div class="heb-card-title">Camp Saharien Étoile du Sud</div>
+          <div class="heb-card-desc">Tente touarègue de luxe au cœur du Hoggar. Couchers de soleil mythiques, guide
+            local inclus et cuisine saharienne.</div>
+          <div class="heb-amenities">
+            <span>🌅 Coucher de soleil</span><span>🛏️ Confort premium</span><span>🍽️ Repas inclus</span><span>🐪
+              Excursion</span>
+          </div>
+        </div>
+        <div class="heb-card-footer">
+          <div class="heb-price">5 500 DZD <small>/ nuit</small></div>
+          <button class="btn-heb-reserve"
+            data-img="https://tse4.mm.bing.net/th/id/OIP.-kObnOVhus615tTSwW8dzQHaEK?rs=1&pid=ImgDetMain"
+            data-title="Camp Saharien Étoile du Sud" data-location="📍 Tamanrasset, Hoggar"
+            data-rating="⭐ 5.0 · 38 avis" data-price="5500"
+            data-amenities='["🌅 Vue lever/coucher soleil","🛏️ Lit & literie luxe","🍽️ 3 repas sahariens/jour","🐪 Excursion dromadaire","🎶 Musique touarègue","🔦 Éclairage autonome","🚿 Douche solaire","👤 Guide local dédié"]'
+            data-info='["🏜️ Désert du Hoggar","👥 Capacité : 2 personnes","🕐 Check-in : 17h00","🕑 Check-out : 09h00","🐕 Animaux non admis","🌡️ Idéal nov–mars"]'>
+            Réserver →
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /cards-grid -->
+  </section>
+
+  <!-- ══════════════════════════════════════
+     WHY US — same structure as other pages
+══════════════════════════════════════ -->
+  <section class="why-section">
+    <div class="why-text">
+      <span class="section-label">Pourquoi nous choisir</span>
+      <h2 class="section-title">L'hébergement algérien,<br>autrement</h2>
+      <p>Nous sélectionnons uniquement les meilleurs hébergements vérifiés, pour que chaque nuit en montagne soit une
+        expérience inoubliable.</p>
+      <ul class="why-list">
+        <li>
+          <span class="why-icon">🛡️</span>
+          <span><strong style="color:#fff">Hébergements vérifiés</strong> — Chaque établissement est inspecté par notre
+            équipe sur place.</span>
+        </li>
+        <li>
+          <span class="why-icon">📅</span>
+          <span><strong style="color:#fff">Réservation instantanée</strong> — Confirmez votre séjour en ligne en moins
+            de 2 minutes.</span>
+        </li>
+        <li>
+          <span class="why-icon">⭐</span>
+          <span><strong style="color:#fff">Avis vérifiés</strong> — Lisez les avis authentiques de vrais voyageurs avant
+            de choisir.</span>
+        </li>
+        <li>
+          <span class="why-icon">🌤️</span>
+          <span><strong style="color:#fff">Météo en temps réel</strong> — Consultez les conditions météo avant votre
+            arrivée.</span>
+        </li>
+      </ul>
+    </div>
+    <div class="why-stats">
+      <div class="stat-card">
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Hébergements disponibles dans toute l'Algérie</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2 400+</div>
+        <div class="stat-label">Nuits réservées cette saison</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Taux de satisfaction client</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4.9★</div>
+        <div class="stat-label">Note moyenne de nos hébergements</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+     DETAIL / BOOKING MODAL
+══════════════════════════════════════ -->
+  <div class="overlay" id="hebOverlay" onclick="closeHebModal()"></div>
+
+  <div class="detail-panel" id="hebPanel">
+    <button class="close-btn" onclick="closeHebModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M18 6L6 18M6 6l12 12" />
+      </svg>
+    </button>
+
+    <!-- Hero image -->
+    <div class="detail-hero">
+      <img id="hebModalImg" src="" alt="" />
+      <div class="detail-hero-overlay">
+        <span class="detail-season-badge" id="hebModalLocation"></span>
+        <h2 class="detail-name" id="hebModalTitle"></h2>
+        <p class="detail-price-hero" id="hebModalRating"></p>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="detail-body">
+
+      <!-- Amenities -->
+      <div class="detail-section">
+        <div class="detail-section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+            <path d="M9 12l2 2 4-4" />
+            <rect x="3" y="3" width="18" height="18" rx="3" />
+          </svg>
+          Équipements inclus
+        </div>
+        <div class="heb-amenities-grid" id="hebModalAmenities"></div>
+      </div>
+
+      <!-- Info -->
+      <div class="detail-section">
+        <div class="detail-section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 8v4M12 16h.01" />
+          </svg>
+          Informations pratiques
+        </div>
+        <div class="heb-info-grid" id="hebModalInfo"></div>
+      </div>
+
+      <!-- Booking form -->
+      <div class="detail-section">
+        <div class="detail-section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+            <rect x="3" y="4" width="18" height="18" rx="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
+          </svg>
+          Votre réservation
+        </div>
+
+        <div class="res-form-row">
+          <div class="res-form-group">
+            <label>Date d'arrivée *</label>
+            <input type="date" id="hebArrival" />
+          </div>
+          <div class="res-form-group">
+            <label>Date de départ *</label>
+            <input type="date" id="hebDeparture" />
+          </div>
+        </div>
+        <div class="res-form-row">
+          <div class="res-form-group">
+            <label>Voyageurs</label>
+            <select id="hebGuests">
+              <option>1 voyageur</option>
+              <option selected>2 voyageurs</option>
+              <option>3 voyageurs</option>
+              <option>4 voyageurs</option>
+              <option>5+ voyageurs</option>
+            </select>
+          </div>
+          <div class="res-form-group">
+            <label>Type de chambre</label>
+            <select id="hebRoomType">
+              <option>Standard</option>
+              <option>Supérieure</option>
+              <option>Suite panoramique</option>
+            </select>
+          </div>
+        </div>
+        <div class="res-form-row">
+          <div class="res-form-group">
+            <label>Prénom & Nom *</label>
+            <input type="text" id="hebName" placeholder="Ex : Amine Boudiaf" />
+          </div>
+          <div class="res-form-group">
+            <label>Téléphone *</label>
+            <input type="tel" id="hebTel" placeholder="+213 6XX XXX XXX" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Total -->
+      <div class="prod-total-box">
+        <div class="prod-total-row">
+          <span>Prix par nuit</span>
+          <span id="hebPricePerNight">—</span>
+        </div>
+        <div class="prod-total-row">
+          <span id="hebNightsLabel">Nuits</span>
+          <span id="hebNightsCount">—</span>
+        </div>
+        <div class="prod-total-row prod-total-final">
+          <span>Total estimé</span>
+          <span id="hebTotal">—</span>
+        </div>
+      </div>
+
+      <button class="btn-reserve-full" id="hebConfirmBtn" onclick="confirmHebReservation()">
+        ✅ Confirmer la réservation
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+     TOAST
+══════════════════════════════════════ -->
+  <div class="res-toast" id="hebToast">
+    <span>🏡</span>
+    <div>
+      <strong>Réservation confirmée !</strong>
+      <p>Retrouvez-la dans Mon Compte → Mes Réservations.</p>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="logo" href="index.html">Mountain<span>DZ</span></a>
+        <p>L'authenticité algérienne à son sommet.<br>Hébergements, activités et expériences uniques.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="accueil.html">Accueil</a></li>
+          <li><a href="hebergement.html">Hébergements</a></li>
+          <li><a href="restaurant.html">Restaurants</a></li>
+          <li><a href="index.html">Activités</a></li>
+          <li><a href="boutique.html">Boutique</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="apropos.html">À propos</a></li>
+          <li><a href="nouvelles.html">Nouvelles</a></li>
+          <li><a href="emplois.html">Emplois</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 MountainDZ. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+
+
+  <!-- Scripts — auth.js FIRST, then page logic -->
+  <script src="api-connector.js"></script>
+  <script src="hebergement.js"></script>
+
+</body>
+
+</html>

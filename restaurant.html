@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MountainDZ — Restaurants & Cafés</title>
+  <link rel="stylesheet" href="restaurant.css" />
+    <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+ 
+<!-- Main nav -->
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <div class="logo"><a href="accueil.html" style="text-decoration:none;color:inherit;">Mountain<span>DZ</span></a></div>
+
+    <nav class="nav-main">
+      <a href="accueil.html">Accueil</a>
+   <a href="index.html">Activités</a>
+       <a href="boutique.html">Boutique</a>
+      <a href="hebergement.html">Hébergements</a>
+      <a href="restaurant.html"class="active">Restaurants & Cafés</a>
+    </nav>
+
+    <div class="nav-right">
+    <!-- ═══════════════════════════════════════════════
+   COMPTE DROPDOWN
+   📌 Dans boutique.html (et index.html, etc.)
+   Remplace ENTIÈREMENT ce bloc dans ton <div class="nav-right"> :
+
+   <button class="btn-account" onclick="openAuthModal()">
+     ...
+     Mon compte
+   </button>
+
+   Par ce nouveau bloc ci-dessous :
+════════════════════════════════════════════════ -->
+
+<div class="account-wrap" id="accountWrap">
+  <button class="btn-account" onclick="toggleAccountDropdown(event)">
+    <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+    </svg>
+    Mon compte
+    <svg class="account-chevron" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  </button>
+
+  <!-- Dropdown -->
+  <div class="account-dropdown" id="accountDropdown">
+    <!-- Top arrow pointer -->
+    <div class="dropdown-arrow"></div>
+
+    <!-- Logo / Brand -->
+    <div class="dropdown-brand">
+      
+      <div>
+        <div class="dropdown-brand-name">Mountain<span>DZ</span></div>
+        <div class="dropdown-brand-sub">Espace personnel</div>
+      </div>
+    </div>
+
+    <div class="dropdown-divider"></div>
+
+<!-- SE CONNECTER button -->
+
+<button class="btn-connect" onclick="window.location.href='signin.html'">
+  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/>
+    <polyline points="10 17 15 12 10 7"/>
+    <line x1="15" y1="12" x2="3" y2="12"/>
+  </svg>
+  Se connecter
+  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+    <path d="M5 12h14M12 5l7 7-7 7"/>
+  </svg>
+</button>
+
+<!-- Nouveau client -->
+<div class="dropdown-new-client">
+  <p>Nouveau client chez MountainDZ ?</p>
+  <a href="signin.html" class="dropdown-register-link">
+    Créer mon compte
+    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+      <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>
+  </a>
+</div>
+
+<div class="dropdown-divider"></div>
+
+    <!-- Quick links -->
+    <div class="dropdown-links">
+      <a href="#" class="dropdown-link" onclick="closeAccountDropdown()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        Mes commandes
+      </a>
+      <a href="#" class="dropdown-link" onclick="closeAccountDropdown()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        Mes réservations
+      </a>
+      <a href="#" class="dropdown-link" onclick="closeAccountDropdown()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+        </svg>
+        Mes favoris
+      </a>
+    </div>
+  </div>
+</div>
+      <button class="btn-reserve" onclick="window.location.href='restaurant.html#restaurants'">Voir les restaurants →</button>
+    </div>
+  </div>
+</header>
+
+  <!-- ===== HERO ===== -->
+  <section class="restau-hero" id="restau-hero">
+    <div class="restau-hero-bg">
+      <div class="hero-overlay"></div>
+      <div class="hero-particles" id="particles"></div>
+    </div>
+    <div class="restau-hero-content">
+      <div class="badge pulse-badge">
+        <span class="dot"></span> SAISON 2026 OUVERTE
+      </div>
+      <h1 class="hero-title">
+        Découvrez les<br/>
+        <span class="gradient-text">Restaurants & Cafés</span>
+      </h1>
+      <p class="hero-subtitle">
+        Des saveurs du monde entier aux cocottes fumantes de montagne —<br/>
+        trouvez l'endroit parfait pour vous réconforter au cœur des sommets algériens.
+      </p>
+      <div class="mood-badges">
+        <span class="mood winter active" data-season="winter"><i class="fas fa-snowflake"></i> Hiver</span>
+        <span class="mood autumn" data-season="autumn"><i class="fas fa-leaf"></i> Automne</span>
+        <span class="mood spring" data-season="spring"><i class="fas fa-seedling"></i> Printemps</span>
+        <span class="mood summer" data-season="summer"><i class="fas fa-sun"></i> Été</span>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>Découvrir</span>
+    </div>
+  </section>
+
+  <!-- ===== SEARCH BAR ===== -->
+ <section class="restau-section" >
+  <section class="search-section">
+    <div class="search-card">
+      <div class="search-field">
+        <label><i class="fas fa-map-marker-alt" style="color:#3b8bfa"></i> STATION</label>
+        <select>
+          <option>Toutes les stations</option>
+          <option>Tikjda, Bouira</option>
+          <option>Chréa, Blida</option>
+          <option>Tala Guilef, Béjaïa</option>
+          <option>Djurdjura</option>
+          <option>Théniet El Had</option>
+        </select>
+      </div>
+      <div class="search-divider"></div>
+      <div class="search-field">
+        <label><i class="fas fa-utensils" style="color:#3b8bfa"></i> TYPE</label>
+        <select id="typeSelect">
+          <option value="all">Tous</option>
+          <option value="restaurant">Restaurant</option>
+          <option value="cafe">Café</option>
+          <option value="bar">Bar & Lounge</option>
+        </select>
+      </div>
+      <div class="search-divider"></div>
+      <div class="search-field">
+        <label><i class="fas fa-globe" style="color:#3b8bfa"></i> GASTRONOMIE</label>
+        <select id="gastroSelect">
+          <option value="all">Toutes</option>
+          <option value="algerienne">Algérienne</option>
+          <option value="japonaise">Japonaise</option>
+          <option value="italienne">Italienne</option>
+          <option value="indienne">Indienne</option>
+          <option value="francaise">Française</option>
+          <option value="mexicaine">Mexicaine</option>
+          <option value="libanaise">Libanaise</option>
+        </select>
+      </div>
+      <div class="search-divider"></div>
+      <div class="search-field">
+        <label><i class="fas fa-star" style="color:#fbbf24"></i> BUDGET</label>
+        <select id="budgetSelect">
+          <option value="all">Tous budgets</option>
+          <option value="1">€ — Économique</option>
+          <option value="2">€€ — Moyen</option>
+          <option value="3">€€€ — Premium</option>
+          <option value="4">€€€€ — Luxe</option>
+        </select>
+      </div>
+      <button class="btn-search" id="searchBtn">
+        <i class="fas fa-search"></i> Rechercher
+      </button>
+    </div>
+  </section>
+
+  <!-- ===== SEASONAL BANNER ===== -->
+  <section class="seasonal-banner" id="seasonalBanner">
+    <div class="season-inner winter-content active" id="winter-content">
+      <div class="season-icon">❄️</div>
+      <div class="season-text">
+        <h3>Spécialités Hiver & Automne</h3>
+        <p>Chocolats chauds au coin du feu, cannelle rolls fumants, marshmallows grillés, fondues savoyardes et raclettes — des moments chaleureux au cœur des neiges.</p>
+      </div>
+      <div class="season-items">
+        <span>☕️ Chocolat Chaud</span><span>🍪 Cinnamon Rolls</span>
+        <span>🍡 Marshmallows au feu</span><span>🫕 Fondue</span>
+        <span>🧀 Raclette</span><span>🍂 Tarte aux pommes</span>
+      </div>
+    </div>
+    <div class="season-inner autumn-content" id="autumn-content">
+      <div class="season-icon">🍂</div>
+      <div class="season-text">
+        <h3>Saveurs d'Automne</h3>
+        <p>Soupes de potiron, cidre chaud, châtaignes rôties, tarte aux figues — les saveurs réconfortantes de la saison dorée.</p>
+      </div>
+      <div class="season-items">
+        <span>🎃 Soupe Potiron</span><span>🍎 Cidre Chaud</span>
+        <span>🌰 Châtaignes</span><span>🍰 Tarte Figues</span>
+        <span>🍄 Risotto</span><span>🫖 Thé Épicé</span>
+      </div>
+    </div>
+    <div class="season-inner spring-content" id="spring-content">
+      <div class="season-icon">🌸</div>
+      <div class="season-text">
+        <h3>Fraîcheur du Printemps</h3>
+        <p>Salades de fraises, limonades maison, brunchs en terrasse, smoothies aux fruits frais — le renouveau dans votre assiette.</p>
+      </div>
+      <div class="season-items">
+        <span>🍓 Salades Fraises</span><span>🥤 Smoothies</span>
+        <span>🥗 Brunch Terrasse</span><span>🌿 Detox Jus</span>
+        <span>🧁 Muffins</span><span>🍋 Limonade</span>
+      </div>
+    </div>
+    <div class="season-inner summer-content" id="summer-content">
+      <div class="season-icon">☀️</div>
+      <div class="season-text">
+        <h3>Festin d'Été en Plein Air</h3>
+        <p>Cocktails tropicaux, fruit platters colorés, buffets à l'air libre sous les étoiles, barbecues en montagne — l'été à son apogée.</p>
+      </div>
+      <div class="season-items">
+        <span>🍹 Cocktails</span><span>🍉 Fruit Platter</span>
+        <span>🥘 Buffet Air Libre</span><span>🍢 BBQ Montagne</span>
+        <span>🌮 Tacos Frais</span><span>🫧 Mojito</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LISTINGS ===== -->
+  <section class="listings-section" id="restaurants">
+    <div class="section-header">
+      <h2>Nos <span class="gradient-text">Restaurants & Cafés</span></h2>
+      <p>Une sélection raffinée de tables et de cafés — pour chaque envie, chaque saison, chaque budget.</p>
+    </div>
+
+    <div class="filter-tabs">
+      <button class="tab active" data-filter="all"><i class="fas fa-border-all"></i> Tous</button>
+      <button class="tab" data-filter="restaurant"><i class="fas fa-utensils"></i> Restaurants</button>
+      <button class="tab" data-filter="cafe"><i class="fas fa-coffee"></i> Cafés</button>
+      <button class="tab" data-filter="bar"><i class="fas fa-cocktail"></i> Bars & Lounges</button>
+    </div>
+
+    <div class="sort-bar">
+      <span class="results-count" id="resultsCount">18 établissements trouvés</span>
+      <div class="sort-controls">
+        <span>Trier par :</span>
+        <button class="sort-btn active" data-sort="price-asc"><i class="fas fa-sort-amount-up-alt"></i> Prix ↑</button>
+        <button class="sort-btn" data-sort="price-desc"><i class="fas fa-sort-amount-down-alt"></i> Prix ↓</button>
+        <button class="sort-btn" data-sort="rating"><i class="fas fa-star"></i> Note</button>
+      </div>
+    </div>
+
+    <div class="cards-grid" id="cardsGrid">
+
+      <div class="card" data-type="restaurant" data-gastro="japonaise" data-price="2" data-rating="4.6">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80')"></div>
+          <span class="card-tag restaurant">🍽 RESTAURANT</span>
+          <span class="card-stars">⭐️ 4.6</span>
+          <div class="card-budget">€€</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> TIKJDA, BOUIRA</div>
+          <h3>Sakura en Altitude</h3>
+          <p>Sushis, ramens et gyozas préparés par un chef japonais — une expérience zen au sommet du Djurdjura.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🇯🇵 Japonaise</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-fire"></i> Robata Grill</span>
+            <span><i class="fas fa-wine-glass"></i> Saké Bar</span>
+            <span><i class="fas fa-eye"></i> Vue Panoramique</span>
+            <span><i class="fas fa-leaf"></i> Menu Végétalien</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">9950 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-type="cafe" data-gastro="algerienne" data-price="1" data-rating="4.8">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&q=80')"></div>
+          <span class="card-tag cafe">☕️ CAFÉ</span>
+          <span class="card-stars">⭐️ 4.8</span>
+          <div class="card-budget">€</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> CHRÉA, BLIDA</div>
+          <h3>Café du Feu de Bois</h3>
+          <p>Nichés devant une cheminée crépitante, dégustez café berbère, chocolat chaud et cinnamon rolls fraîchement sortis du four.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🇩🇿 Algérienne</span><span class="season-tag winter-tag">❄️ Hiver</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-fire-alt"></i> Cheminée</span>
+            <span><i class="fas fa-mug-hot"></i> Chocolat Chaud</span>
+            <span><i class="fas fa-cookie"></i> Cinnamon Rolls</span>
+            <span><i class="fas fa-wifi"></i> WiFi</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">1000 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-type="restaurant" data-gastro="italienne" data-price="2" data-rating="4.7">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80')"></div>
+          <span class="card-tag restaurant">🍽 RESTAURANT</span>
+          <span class="card-stars">⭐️ 4.7</span>
+          <div class="card-budget">€€</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> TALA GUILEF, BÉJAÏA</div>
+          <h3>La Trattoria delle Cime</h3>
+          <p>Pâtes fraîches maison, pizzas au feu de bois et tiramisu authentique — la dolce vita à 1800m d'altitude.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🇮🇹 Italienne</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-pizza-slice"></i> Four à Bois</span>
+            <span><i class="fas fa-wine-bottle"></i> Cave à Vins</span>
+            <span><i class="fas fa-chair"></i> Terrasse</span>
+            <span><i class="fas fa-birthday-cake"></i> Desserts</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">3800 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-type="cafe" data-gastro="francaise" data-price="2" data-rating="4.9">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&q=80')"></div>
+          <span class="card-tag cafe">☕️ CAFÉ</span>
+          <span class="card-stars">⭐️ 4.9</span>
+          <div class="card-budget">€€</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> DJURDJURA</div>
+          <h3>Le Chalet Pâtissier</h3>
+          <p>Croissants au beurre, macarons colorés, café de spécialité et marshmallows grillés sur bûche — un salon de thé de montagne comme nulle part ailleurs.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🇫🇷 Française</span><span class="season-tag autumn-tag">🍂 Automne</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-fire-alt"></i> Bûche & Feu</span>
+            <span><i class="fas fa-bread-slice"></i> Viennoiseries</span>
+            <span><i class="fas fa-star"></i> Pâtisseries</span>
+            <span><i class="fas fa-mug-hot"></i> Café Torréfié</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">1500 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-type="restaurant" data-gastro="indienne" data-price="2" data-rating="4.5">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80')"></div>
+          <span class="card-tag restaurant">🍽 RESTAURANT</span>
+          <span class="card-stars">⭐️ 4.5</span>
+          <div class="card-budget">€€</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> TIKJDA, BOUIRA</div>
+          <h3>Spice Route Altitude</h3>
+          <p>Currys parfumés, butter chicken, naans au tandoor et lassi — les épices de l'Inde réchauffent les nuits de montagne.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🇮🇳 Indienne</span><span class="season-tag winter-tag">❄️ Hiver</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-fire"></i> Tandoor</span>
+            <span><i class="fas fa-pepper-hot"></i> Épices</span>
+            <span><i class="fas fa-leaf"></i> Végétarien</span>
+            <span><i class="fas fa-globe"></i> Halal</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">4600 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-type="bar" data-gastro="algerienne" data-price="2" data-rating="4.7">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=600&q=80')"></div>
+          <span class="card-tag bar">🍹 BAR & LOUNGE</span>
+          <span class="card-stars">⭐️ 4.7</span>
+          <div class="card-budget">€€</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> CHRÉA, BLIDA</div>
+          <h3>Atlas Sky Lounge</h3>
+          <p>Cocktails signature, jus de fruits frais et mocktails artisanaux avec vue à 360° sur les montagnes de l'Atlas Blidéen.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🇩🇿 Fusion</span><span class="season-tag summer-tag">☀️ Été</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-cocktail"></i> Cocktails</span>
+            <span><i class="fas fa-eye"></i> Vue 360°</span>
+            <span><i class="fas fa-music"></i> Live Music</span>
+            <span><i class="fas fa-star"></i> Terrasse</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">4700 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-type="restaurant" data-gastro="algerienne" data-price="1" data-rating="4.9">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80')"></div>
+          <span class="card-tag restaurant">🍽 RESTAURANT</span>
+          <span class="card-stars">⭐️ 4.9</span>
+          <div class="card-budget">€</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> TALA GUILEF, BÉJAÏA</div>
+          <h3>Dar El Djebel</h3>
+          <p>Couscous kabyle, mechoui, chorba et msemen — la cuisine algérienne authentique dans un cadre traditionnel chaleureux.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🇩🇿 Algérienne</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-utensils"></i> Traditionnel</span>
+            <span><i class="fas fa-fire-alt"></i> Tajine</span>
+            <span><i class="fas fa-home"></i> Familial</span>
+            <span><i class="fas fa-heart"></i> Fait Maison</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">7450 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-type="restaurant" data-gastro="mexicaine" data-price="2" data-rating="4.4">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&q=80')"></div>
+          <span class="card-tag restaurant">🍽 RESTAURANT</span>
+          <span class="card-stars">⭐️ 4.4</span>
+          <div class="card-budget">€€</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> DJURDJURA</div>
+          <h3>El Rancho del Atlas</h3>
+          <p>Tacos, guacamole frais, nachos croustillants et margaritas — les saveurs du Mexique en altitude avec fruit platter estival.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🇲🇽 Mexicaine</span><span class="season-tag summer-tag">☀️ Été</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-pepper-hot"></i> Épicé</span>
+            <span><i class="fas fa-glass-martini-alt"></i> Margaritas</span>
+            <span><i class="fas fa-umbrella-beach"></i> Terrasse Estivale</span>
+            <span><i class="fas fa-apple-alt"></i> Fruit Platter</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">10000 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-type="cafe" data-gastro="algerienne" data-price="1" data-rating="4.6">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80')"></div>
+          <span class="card-tag cafe">☕️ CAFÉ</span>
+          <span class="card-stars">⭐️ 4.6</span>
+          <div class="card-budget">€</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> TIKJDA, BOUIRA</div>
+          <h3>L'Écureuil Café</h3>
+          <p>Vue imprenable sur les cèdres enneigés, café kabyle épicé, thé à la menthe et msemen chaud — le café de montagne par excellence.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🇩🇿 Berbère</span><span class="season-tag spring-tag">🌸 Printemps</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-leaf"></i> Thé Menthe</span>
+            <span><i class="fas fa-eye"></i> Vue Forêt</span>
+            <span><i class="fas fa-wifi"></i> WiFi</span>
+            <span><i class="fas fa-book"></i> Lecture</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">2800 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-type="restaurant" data-gastro="libanaise" data-price="3" data-rating="4.8">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80')"></div>
+          <span class="card-tag restaurant">🍽 RESTAURANT</span>
+          <span class="card-stars">⭐️ 4.8</span>
+          <div class="card-budget">€€€</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> CHRÉA, BLIDA</div>
+          <h3>Cèdre du Liban</h3>
+          <p>Mezzé somptueux, grillades au charbon de bois, houmous maison et baklava — la générosité libanaise au sommet des monts.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🇱🇧 Libanaise</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-fire"></i> Charbon de Bois</span>
+            <span><i class="fas fa-drumstick-bite"></i> Grillades</span>
+            <span><i class="fas fa-users"></i> Banquets</span>
+            <span><i class="fas fa-star"></i> Mezzé</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">4000 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-type="cafe" data-gastro="francaise" data-price="2" data-rating="4.5">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=600&q=80')"></div>
+          <span class="card-tag cafe">☕️ CAFÉ</span>
+          <span class="card-stars">⭐️ 4.5</span>
+          <div class="card-budget">€€</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> TALA GUILEF, BÉJAÏA</div>
+          <h3>Café Bloom — Terrasse Fleurie</h3>
+          <p>Smoothies à la fraise, limonades maison, muffins au citron et brunch en terrasse fleurie — l'esprit printanier à son meilleur.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🇫🇷 Brunch</span><span class="season-tag spring-tag">🌸 Printemps</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-spa"></i> Terrasse Fleurie</span>
+            <span><i class="fas fa-blender"></i> Smoothies</span>
+            <span><i class="fas fa-egg"></i> Brunch</span>
+            <span><i class="fas fa-apple-alt"></i> Bio</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">2000 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-type="bar" data-gastro="algerienne" data-price="3" data-rating="4.9">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80')"></div>
+          <span class="card-tag bar">🍹 BAR & LOUNGE</span>
+          <span class="card-stars">⭐️ 4.9</span>
+          <div class="card-budget">€€€</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> DJURDJURA</div>
+          <h3>Étoiles du Soir — Rooftop Bar</h3>
+          <p>Buffet à l'air libre sous les étoiles, cocktails aux herbes sauvages de montagne, fruit platters et BBQ estival en plein air.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🌍 Fusion Monde</span><span class="season-tag summer-tag">☀️ Été</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-star"></i> Rooftop</span>
+            <span><i class="fas fa-fire"></i> BBQ Estival</span>
+            <span><i class="fas fa-cocktail"></i> Cocktails</span>
+            <span><i class="fas fa-music"></i> DJ Live</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">4200 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-type="restaurant" data-gastro="francaise" data-price="4" data-rating="5.0">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80')"></div>
+          <span class="card-tag restaurant">🍽 RESTAURANT</span>
+          <span class="card-stars">⭐️ 5.0</span>
+          <div class="card-budget">€€€€</div>
+          <div class="card-badge-luxe">✨ LUXE</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> TIKJDA, BOUIRA</div>
+          <h3>Le Grand Atlas — Table Gastronomique</h3>
+          <p>Menu dégustation 7 services, cave à vins exceptionnelle, chef étoilé et service à la française — l'expérience culinaire ultime en altitude.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🇫🇷 Gastronomique</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-crown"></i> Chef Étoilé</span>
+            <span><i class="fas fa-wine-glass-alt"></i> Cave Vins</span>
+            <span><i class="fas fa-concierge-bell"></i> Service VIP</span>
+            <span><i class="fas fa-eye"></i> Vue Montagne</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">21000 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-type="cafe" data-gastro="algerienne" data-price="1" data-rating="4.7">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?w=600&q=80')"></div>
+          <span class="card-tag cafe">☕️ CAFÉ</span>
+          <span class="card-stars">⭐️ 4.7</span>
+          <div class="card-budget">€</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> THÉNIET EL HAD</div>
+          <h3>Kiosque des Cèdres</h3>
+          <p>En plein cœur de la cédraie, siroter un café turc ou un thé à la cardamome en regardant les oiseaux — la paix absolue.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🇩🇿 Kabyle</span><span class="season-tag spring-tag">🌸 Printemps</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-tree"></i> En Forêt</span>
+            <span><i class="fas fa-dove"></i> Nature</span>
+            <span><i class="fas fa-mug-hot"></i> Café Turc</span>
+            <span><i class="fas fa-cookie-bite"></i> Baklawa</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">1500 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-type="restaurant" data-gastro="algerienne" data-price="3" data-rating="4.8">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://tse3.mm.bing.net/th/id/OIP.tK9IuWjQcpdSXZqok-UOSgHaFI?rs=1&pid=ImgDetMain&o=7&rm=3')"></div>
+          <span class="card-tag restaurant">🍽 RESTAURANT</span>
+          <span class="card-stars">⭐️ 4.8</span>
+          <div class="card-budget">€€€</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> CHRÉA, BLIDA</div>
+          <h3>La Ferme de l'Atlas</h3>
+          <p>Produits de la ferme, agneau méchoui entier au feu de bois, fromages locaux et miel sauvage — l'authenticité dans l'assiette.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🇩🇿 Terroir</span><span class="season-tag autumn-tag">🍂 Automne</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-tractor"></i> Produits Fermiers</span>
+            <span><i class="fas fa-fire"></i> Méchoui</span>
+            <span><i class="fas fa-cheese"></i> Fromages Locaux</span>
+            <span><i class="fas fa-seedling"></i> Bio</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">4500 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-type="cafe" data-gastro="francaise" data-price="2" data-rating="4.6">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1473093226795-af9932fe5856?w=600&q=80')"></div>
+          <span class="card-tag cafe">☕️ CAFÉ</span>
+          <span class="card-stars">⭐️ 4.6</span>
+          <div class="card-budget">€€</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> TIKJDA, BOUIRA</div>
+          <h3>Nid Douillet — Café Hivernal</h3>
+          <p>Couvertures en laine, marshmallows grillés, fondues au chocolat, spéculoos maison — l'univers cocooning ultime de la montagne.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🇫🇷 Cosy</span><span class="season-tag winter-tag">❄️ Hiver</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-fire-alt"></i> Feu de Bois</span>
+            <span><i class="fas fa-mug-hot"></i> Fondues Choc.</span>
+            <span><i class="fas fa-blanket"></i> Cocooning</span>
+            <span><i class="fas fa-snowman"></i> Ambiance Ski</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">2200 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-type="bar" data-gastro="algerienne" data-price="2" data-rating="4.5">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1560508180-03f285f67ded?w=600&q=80')"></div>
+          <span class="card-tag bar">🍹 BAR & LOUNGE</span>
+          <span class="card-stars">⭐️ 4.5</span>
+          <div class="card-budget">€€</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> TALA GUILEF, BÉJAÏA</div>
+          <h3>Sunset Juice Bar</h3>
+          <p>Jus de fruits frais pressés, cocktails de printemps, smoothies bowl et fruit platters colorés — la santé dans un verre avec vue sur les crêtes.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🌿 Healthy</span><span class="season-tag summer-tag">☀️ Été</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-blender"></i> Jus Frais</span>
+            <span><i class="fas fa-apple-alt"></i> Fruit Platter</span>
+            <span><i class="fas fa-eye"></i> Vue Crêtes</span>
+            <span><i class="fas fa-spa"></i> Detox</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">900 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-type="restaurant" data-gastro="japonaise" data-price="4" data-rating="4.9">
+        <div class="card-img-wrap">
+          <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80')"></div>
+          <span class="card-tag restaurant">🍽 RESTAURANT</span>
+          <span class="card-stars">⭐️ 4.9</span>
+          <div class="card-budget">€€€€</div>
+          <div class="card-badge-luxe">✨ EXCLUSIF</div>
+        </div>
+        <div class="card-body">
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> DJURDJURA</div>
+          <h3>Omakase des Sommets</h3>
+          <p>Table unique de 8 couverts, menu omakase du chef, poissons d'importation directe du Japon — l'ultime expérience gastronomique asiatique en montagne.</p>
+          <div class="card-cuisine"><span class="cuisine-badge">🇯🇵 Omakase</span></div>
+          <div class="card-amenities">
+            <span><i class="fas fa-crown"></i> Table Unique</span>
+            <span><i class="fas fa-fish"></i> Poissons Japon</span>
+            <span><i class="fas fa-user-tie"></i> Chef Privé</span>
+            <span><i class="fas fa-wine-glass"></i> Cave à Saké</span>
+          </div>
+          <div class="card-footer">
+            <div class="card-price">15000 <span>DZD / pers.</span></div>
+            <button class="btn-card">Réserver →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="no-results" id="noResults" style="display:none;">
+      <div class="no-results-icon">🍽</div>
+      <h3>Aucun établissement trouvé</h3>
+      <p>Essayez d'autres critères de recherche.</p>
+    </div>
+  </section>
+</section>
+  <!-- ===== EXPERIENCE SECTION ===== -->
+  <section class="experience-section">
+    <div class="exp-inner">
+      <div class="exp-text">
+        <div class="exp-badge">L'expérience MountainDZ</div>
+        <h2>Chaque repas, <span class="gradient-text">un souvenir</span></h2>
+        <p>Que vous cherchiez à vous réchauffer devant une cheminée avec un chocolat chaud en hiver, à savourer un brunch fleuri au printemps, à siroter un cocktail sur une terrasse estivale ou à déguster des spécialités d'automne — nos partenaires culinaires sont là pour créer des moments inoubliables.</p>
+        <div class="exp-stats">
+          <div class="stat"><span class="stat-num">18+</span><span>Établissements</span></div>
+          <div class="stat"><span class="stat-num">12</span><span>Gastronomies</span></div>
+          <div class="stat"><span class="stat-num">4</span><span>Saisons</span></div>
+          <div class="stat"><span class="stat-num">100%</span><span>Qualité</span></div>
+        </div>
+        <a href="#" class="btn-exp">Découvrir tous les établissements →</a>
+      </div>
+      <div class="exp-visuals">
+        <div class="exp-img exp-img-1" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80')"></div>
+        <div class="exp-img exp-img-2" style="background-image:url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=500&q=80')"></div>
+        <div class="exp-float-badge">
+          <i class="fas fa-star" style="color:#fbbf24"></i>
+          <span>4.8 / 5 moyen</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="logo" href="index.html">Mountain<span>DZ</span></a>
+        <p>L'authenticité algérienne à son sommet.<br>Hébergements, activités et expériences uniques.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="accueil.html">Accueil</a></li>
+          <li><a href="hebergement.html">Hébergements</a></li>
+          <li><a href="restaurant.html">Restaurants</a></li>
+          <li><a href="index.html">Activités</a></li>
+          <li><a href="boutique.html">Boutique</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="apropos.html">À propos</a></li>
+          <li><a href="nouvelles.html">Nouvelles</a></li>
+          <li><a href="emplois.html">Emplois</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 MountainDZ. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <!-- Booking Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+      <h3>Réserver une table</h3>
+      <p id="modalTitle" class="modal-subtitle"></p>
+      <div class="modal-form">
+        <div class="form-group">
+          <label>Nom complet</label>
+          <input type="text" placeholder="Votre nom" />
+        </div>
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" />
+        </div>
+        <div class="form-group">
+          <label>Heure</label>
+          <select>
+            <option>12:00</option><option>13:00</option><option>19:00</option>
+            <option>20:00</option><option>21:00</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Nombre de personnes</label>
+          <input type="number" min="1" max="20" value="2" />
+        </div>
+        <button class="btn-modal-confirm">Confirmer la réservation ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span>Réservation confirmée ! À très bientôt.</span>
+  </div>
+
+  <script src="api-connector.js"></script>
+  <script src="restaurant.js"></script>
+ 
+
+  <script>
+    /* ── Topbar + navbar scroll (matches other pages) ── */
+    const topbar  = document.getElementById('topbar');
+    const navbar  = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY > 60;
+      navbar.classList.toggle('scrolled', scrolled);
+      topbar.classList.toggle('hidden', scrolled);
+    }, { passive: true });
+  </script>
+
+</body>
+</html>

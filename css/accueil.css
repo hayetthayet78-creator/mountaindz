@@ -1,0 +1,1091 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+/* ── Scrollbar — identique restaurant ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #0d1f3c; }
+::-webkit-scrollbar-thumb { background: #3b8bfa; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #2a75e8; }
+
+body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    overflow-x: hidden;
+    background: #0f172a;
+}
+
+/* HEADER — géré par navbar.css sur toutes les pages */
+header {
+    margin: 0;
+    padding: 0;
+}
+
+.logo {
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.logo span {
+    color: #3b8bfa;
+}
+
+/* NAV — anciens liens (hors nouveau navbar) */
+nav:not(.nav-main) a {
+    position: relative;
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    padding-bottom: 6px;
+    transition: color 0.2s;
+}
+
+nav:not(.nav-main) a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background: #3b82f6;
+    border-radius: 2px;
+    transition: width 0.35s ease;
+}
+
+nav:not(.nav-main) a:hover {
+    color: #3b82f6;
+}
+
+nav:not(.nav-main) a:hover::after,
+nav:not(.nav-main) a.active::after {
+    width: 100%;
+}
+
+/* SIGNUP BUTTON */
+.signup {
+    padding: 8px 18px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+/* HERO */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 100 60px;
+    overflow: hidden;
+
+
+}
+
+/* CONTENT */
+.hero-content {
+    max-width: 1000px;
+    color: white;
+
+}
+
+/* TITLE — même style que les autres pages (Activités, Boutique…) */
+.hero h1 {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 22px;
+    letter-spacing: -0.01em;
+    text-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* TEXT */
+.hero p {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 30px;
+}
+
+/* BUTTON */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 30px;
+
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+
+    transition: 0.3s;
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+
+
+}
+
+/* HOVER BUTTON */
+.btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 20px 50px rgba(59, 130, 246, 0.8);
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+
+    header {
+        padding: 15px 20px;
+    }
+
+    /* NAV MOBILE */
+    nav {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 100%;
+
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(10px);
+
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+    }
+
+    nav.active {
+        display: flex;
+    }
+
+    nav a {
+        margin: 12px 0;
+        font-size: 16px;
+    }
+
+    /* HERO */
+    .hero {
+        position: relative;
+        height: calc(100vh - 80px);
+        margin-top: 80px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        overflow: hidden;
+
+    }
+
+
+
+
+
+    .hero-content {
+        max-width: 100%;
+        animation: fadeUp 1s ease forwards;
+
+    }
+
+    .hero h1 {
+        font-size: 32px;
+        line-height: 1.3;
+        animation: fadeUp 1s ease forwards;
+        animation-delay: 0.2s;
+    }
+
+    .hero p {
+        font-size: 14px;
+        animation: fadeUp 1s ease forwards;
+        animation-delay: 0.4s;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+        animation: fadeUp 1s ease forwards;
+        animation-delay: 0.6s;
+        transition: 0.3s;
+    }
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    nav {
+        display: none;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-y: auto;
+
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoomBg {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.1);
+    }
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: -50px;
+
+    background-image: url("../images/hiverherbes.jpg");
+    background-size: cover;
+    background-position: center;
+
+    z-index: -2;
+
+    animation: zoomBg 20s ease-in-out infinite alternate;
+
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.2));
+
+    z-index: -1;
+}
+
+
+/* ===== STATS SECTION ===== */
+.stats {
+    position: relative;
+    z-index: 2;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* GRID */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+/* CARDS */
+.stat-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 30px;
+
+    text-align: center;
+    color: white;
+
+    transition: 0.4s;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* HOVER */
+.stat-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    background: rgba(59, 130, 246, 0.2);
+}
+
+/* NUMBER */
+.stat-card h2 {
+    font-size: 36px;
+    color: #3b82f6;
+    margin-bottom: 10px;
+}
+
+/* TEXT */
+.stat-card p {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* BADGE */
+.hero-badge-dot {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(46, 168, 79, 0.2);
+    border: 1px solid rgba(46, 168, 79, 0.5);
+    color: #6ee89a;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 50px;
+    margin-bottom: 24px;
+}
+
+.hero-badge-dot::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(1.4);
+    }
+}
+
+/* BUTTONS CONTAINER */
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* SECOND BUTTON */
+.btn.secondary {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: white;
+}
+
+.about {
+
+    padding: 20px 60px 100px;
+    background: #0f172a;
+    color: white;
+    margin-top: 0;
+
+}
+
+/* CONTAINER */
+.about-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+/* TITRE */
+.about h2 {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+/* TEXTE */
+.about p {
+    font-size: 16px;
+    opacity: 0.8;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* LIST */
+.about ul {
+    list-style: none;
+}
+
+.about li {
+    margin-bottom: 12px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ICON STYLE */
+.about li::before {
+    content: "✔";
+    color: #22c55e;
+    font-weight: bold;
+}
+
+
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: -80px;
+    margin-bottom: 80px;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    padding: 30px;
+    border-radius: 20px;
+    width: 220px;
+    text-align: center;
+
+    transition: 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-10px) scale(1.03);
+}
+
+.stat-card h3 {
+    font-size: 28px;
+    color: #3b82f6;
+}
+
+.stat-card p {
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+.footer {
+    position: relative;
+    z-index: 10;
+    background: #060e1e;
+    padding: 60px 48px 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 40px;
+}
+
+.footer-brand p {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.88rem;
+    margin-top: 14px;
+    line-height: 1.7;
+    max-width: 280px;
+}
+
+.footer-links h4 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+.footer-links a {
+    display: block;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    font-size: 0.88rem;
+    margin-bottom: 10px;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: var(--blue-accent);
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    display: flex;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.40);
+    font-size: 0.82rem;
+}
+
+
+
+.features {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* ITEM */
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+/* ICON BASE */
+.icon {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+    font-size: 22px;
+}
+
+/* COULEURS EXACT STYLE SITE */
+.icon.blue {
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+}
+
+.icon.green {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+}
+
+.icon.yellow {
+    background: rgba(250, 204, 21, 0.15);
+    color: #facc15;
+}
+
+.icon.orange {
+    background: rgba(251, 146, 60, 0.15);
+    color: #fb923c;
+}
+
+/* TEXT */
+.text {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+}
+
+.text strong {
+    color: white;
+}
+
+/* ===== ACCOUNT BUTTON ===== */
+.account {
+    position: relative;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.account-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 13.5px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.account-btn:hover {
+    background: rgba(59, 130, 246, 0.25);
+    border-color: rgba(59, 130, 246, 0.5);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.25);
+}
+
+.account-avatar {
+    font-size: 16px;
+}
+
+.account-chevron {
+    transition: transform 0.3s ease;
+    opacity: 0.8;
+}
+
+.account-chevron.rotated {
+    transform: rotate(180deg);
+}
+
+
+/* ══════════════════════════════════════
+   ACCOUNT DROPDOWN
+   📌 COLLER À LA FIN de style.css
+      (ou boutique.css) pour que ça
+      s'applique à toutes les pages
+══════════════════════════════════════ */
+
+/* ── Wrapper ── */
+.account-wrap {
+    position: relative;
+    z-index: 1;
+}
+
+/* ── Trigger button ── */
+.btn-account {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.88rem;
+    font-family: var(--font-body);
+    cursor: pointer;
+    padding: 7px 12px;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.btn-account:hover {
+    background: rgba(255, 255, 255, 0.10);
+    color: #fff;
+}
+
+.btn-account.open {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+}
+
+/* Chevron rotation when open */
+.account-chevron {
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+    opacity: 0.65;
+}
+
+.btn-account.open .account-chevron {
+    transform: rotate(180deg);
+    opacity: 1;
+}
+
+/* ── Dropdown panel ── */
+.account-dropdown {
+    position: absolute;
+    top: calc(100% + 16px);
+    right: 0;
+    width: 280px;
+    background: linear-gradient(160deg, rgba(13, 28, 55, 0.97) 0%, rgba(8, 18, 36, 0.99) 100%);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 20px;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(59, 139, 250, 0.08);
+    padding: 20px 20px 16px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px) scale(0.97);
+    transform-origin: top right;
+    transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.account-dropdown.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+/* Arrow pointer */
+.dropdown-arrow {
+    position: absolute;
+    top: -7px;
+    right: 20px;
+    width: 14px;
+    height: 14px;
+    background: rgba(13, 28, 55, 0.97);
+    border-left: 1px solid rgba(255, 255, 255, 0.13);
+    border-top: 1px solid rgba(255, 255, 255, 0.13);
+    transform: rotate(45deg);
+    border-radius: 3px 0 0 0;
+}
+
+/* ── Brand block ── */
+.dropdown-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.dropdown-brand-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.dropdown-brand-icon svg {
+    display: block;
+}
+
+.dropdown-brand-name {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+}
+
+.dropdown-brand-name span {
+    color: #3b8bfa;
+}
+
+.dropdown-brand-sub {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.40);
+    margin-top: 2px;
+    letter-spacing: 0.03em;
+}
+
+/* ── Divider ── */
+.dropdown-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.09);
+    margin: 14px 0;
+}
+
+/* ── SE CONNECTER button ── */
+.btn-connect {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: 100%;
+    padding: 13px 18px;
+    background: #2ea84f;
+    border: none;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 0.92rem;
+    font-weight: 700;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 18px rgba(46, 168, 79, 0.35);
+    letter-spacing: 0.02em;
+    margin-bottom: 14px;
+}
+
+.btn-connect:hover {
+    background: #3fc460;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 22px rgba(46, 168, 79, 0.45);
+}
+
+.btn-connect svg {
+    flex-shrink: 0;
+}
+
+/* ── Nouveau client ── */
+.dropdown-new-client {
+    text-align: center;
+}
+
+.dropdown-new-client p {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.dropdown-register-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #3b8bfa;
+    text-decoration: none;
+    transition: color 0.2s, gap 0.2s;
+}
+
+.dropdown-register-link:hover {
+    color: #7db8ff;
+    gap: 8px;
+}
+
+/* ── Quick links ── */
+.dropdown-links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dropdown-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.60);
+    text-decoration: none;
+    font-size: 0.84rem;
+    font-weight: 500;
+    transition: background 0.18s, color 0.18s;
+}
+
+.dropdown-link svg {
+    stroke: rgba(255, 255, 255, 0.40);
+    flex-shrink: 0;
+    transition: stroke 0.18s;
+}
+
+.dropdown-link:hover {
+    background: rgba(255, 255, 255, 0.07);
+    color: #fff;
+}
+
+.dropdown-link:hover svg {
+    stroke: #3b8bfa;
+}
+
+.contact-section {
+    padding: 80px 60px;
+    background: linear-gradient(135deg, #0f172a, #1d4ed8);
+    color: white;
+    margin-bottom: 0;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+/* LEFT */
+.contact-left {
+    flex: 1;
+    min-width: 300px;
+}
+
+.contact-left h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.contact-left p {
+    opacity: 0.8;
+    margin-bottom: 25px;
+}
+
+/* RIGHT */
+.contact-right {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact-right p {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+/* BUTTON CONTACT */
+.contact-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 30px;
+
+    border: 1px solid white;
+    color: white;
+    text-decoration: none;
+
+    transition: 0.3s;
+}
+
+.contact-btn:hover {
+    background: white;
+    color: #1d4ed8;
+}
+
+/* SUBSCRIBE */
+.subscribe-btn {
+    padding: 14px 25px;
+    border-radius: 30px;
+    border: 1px solid white;
+    background: green;
+    color: white;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.subscribe-btn:hover {
+    transform: scale(1.05);
+}
+
+/* ══════════════════════════════════════
+   SYNC NAVBAR — aligne accueil.html avec les autres pages
+   (surcharge les règles Poppins uniquement pour le header)
+══════════════════════════════════════ */
+
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 68px;
+    background: transparent;
+    transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+}
+
+.site-header.scrolled {
+    background: rgba(8, 18, 36, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 48px;
+}
+
+/* Liens nav centrés — même police et espacement que les autres pages */
+.nav-main {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.nav-main a {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+    font-size: 0.94rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.01em !important;
+    color: white !important;
+    text-decoration: none;
+    padding: 7.9px 0;
+    white-space: nowrap;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.nav-main a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3.5px;
+    background: rgb(53, 87, 237);
+    transition: width 0.5s ease;
+    z-index: 10;
+}
+
+.nav-main a:hover::after,
+.nav-main a.active::after {
+    width: 100%;
+}
+
+/* Bouton Mon compte */
+.btn-account {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+    font-size: 0.88rem !important;
+    font-weight: 500 !important;
+    color: rgba(255, 255, 255, 0.82) !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 7px 12px !important;
+    border-radius: 8px !important;
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-account:hover {
+    background: rgba(255, 255, 255, 0.10) !important;
+    color: #fff !important;
+}
+
+/* Bouton Réserver en ligne */
+.btn-reserve {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    background: #2ea84f !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 9px 22px !important;
+    border-radius: 50px !important;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.btn-reserve:hover {
+    background: #3fc460 !important;
+    transform: translateY(-1px);
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    z-index: 1;
+}

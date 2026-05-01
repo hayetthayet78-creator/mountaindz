@@ -1,0 +1,429 @@
+/* =============================================
+   SAISON.CSS — Page Explorer — Design Premium
+   ============================================= */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: #050d1f;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* ── Scrollbar — identique restaurant ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #0d1f3c; }
+::-webkit-scrollbar-thumb { background: #3b8bfa; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #2a75e8; }
+
+
+/* ===== PAGE PRINCIPALE ===== */
+.season-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 120px 40px 80px;
+    position: relative;
+    background:
+        radial-gradient(ellipse at 20% 30%, rgba(59, 130, 246, 0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 70%, rgba(99, 179, 237, 0.08) 0%, transparent 50%),
+        url("../images/hiverherbes.jpg") center/cover no-repeat fixed;
+    gap: 56px;
+}
+
+/* Overlay sombre profond */
+.season-page::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(160deg,
+            rgba(3, 8, 25, 0.88) 0%,
+            rgba(5, 13, 38, 0.82) 50%,
+            rgba(8, 20, 55, 0.78) 100%);
+    z-index: 0;
+}
+
+/* ===== HEADER HERO ===== */
+.explore-header {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    animation: heroIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes heroIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.explore-eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(147, 210, 255, 0.75);
+    background: rgba(99, 179, 237, 0.08);
+    border: 1px solid rgba(99, 179, 237, 0.2);
+    padding: 6px 18px;
+    border-radius: 30px;
+    letter-spacing: 0.8px;
+    margin-bottom: 20px;
+}
+
+.explore-header h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 800;
+    color: white;
+    line-height: 1.12;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.explore-header h1 span {
+    background: linear-gradient(135deg, #63b3ed, #3b82f6, #818cf8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.explore-desc {
+    font-size: 1rem;
+    color: rgba(180, 215, 255, 0.6);
+    max-width: 520px;
+    margin: 0 auto 28px;
+    line-height: 1.7;
+}
+
+.explore-line {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #63b3ed);
+    border-radius: 2px;
+    margin: 0 auto;
+}
+
+/* ===== GRILLE 2x2 ===== */
+.explore-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+/* ===== CARTE EXPLORE ===== */
+.explore-card {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    height: 340px;
+    display: flex;
+    align-items: flex-end;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.45s ease;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.explore-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.65);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* FOND IMAGE */
+.ec-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.explore-card:hover .ec-bg {
+    transform: scale(1.08);
+}
+
+/* IMAGES */
+.activites-bg {
+    background-image: url("../images/activités.jpg");
+}
+
+.hebergements-bg {
+    background-image: url("../images/hebergement.jpg");
+}
+
+.boutique-bg {
+    background-image: url("../images/boutique.jpg");
+}
+
+.restaurant-bg {
+    background-image: url("../images/resto.jpg");
+    filter: saturate(0.7) brightness(0.85);
+}
+
+/* OVERLAY GRADIENT PAR CATÉGORIE */
+.ec-overlay {
+    position: absolute;
+    inset: 0;
+    transition: opacity 0.4s;
+}
+
+#card-activites .ec-overlay {
+    background: linear-gradient(to top,
+            rgba(5, 100, 60, 0.92) 0%,
+            rgba(5, 80, 45, 0.55) 45%,
+            rgba(0, 0, 0, 0.1) 100%);
+}
+
+#card-hebergements .ec-overlay {
+    background: linear-gradient(to top,
+            rgba(30, 58, 138, 0.92) 0%,
+            rgba(29, 78, 216, 0.5) 45%,
+            rgba(0, 0, 0, 0.1) 100%);
+}
+
+#card-boutique .ec-overlay {
+    background: linear-gradient(to top,
+            rgba(109, 40, 217, 0.92) 0%,
+            rgba(91, 33, 182, 0.5) 45%,
+            rgba(0, 0, 0, 0.1) 100%);
+}
+
+#card-restaurant .ec-overlay {
+    background: linear-gradient(to top,
+            rgba(180, 50, 20, 0.88) 0%,
+            rgba(220, 80, 30, 0.48) 45%,
+            rgba(0, 0, 0, 0.15) 100%);
+}
+
+/* HOVER : overlay plus profond */
+.explore-card:hover .ec-overlay {
+    opacity: 1.1;
+}
+
+/* CONTENU */
+.ec-content {
+    position: relative;
+    z-index: 2;
+    padding: 26px 28px;
+    width: 100%;
+    transform: translateY(4px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.explore-card:hover .ec-content {
+    transform: translateY(-4px);
+}
+
+/* ICÔNE EN HAUT */
+.ec-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+    display: block;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+}
+
+/* BADGE */
+.ec-badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    color: white;
+    backdrop-filter: blur(8px);
+}
+
+.ec-badge-coming {
+    background: rgba(251, 146, 60, 0.2);
+    border-color: rgba(251, 146, 60, 0.4);
+    color: #fdba74;
+}
+
+/* TITRE */
+.ec-content h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+    line-height: 1.2;
+}
+
+/* DESCRIPTION */
+.ec-content p {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    display: -webkit-box;
+    
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* TAGS */
+.ec-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.ec-tags span {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(5px);
+    transition: background 0.25s;
+}
+
+.explore-card:hover .ec-tags span {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* BOUTON CTA */
+.ec-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: white;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 8px 18px;
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s;
+    text-shadow: none;
+}
+
+.ec-cta i {
+    transition: transform 0.3s;
+}
+
+.explore-card:hover .ec-cta {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.explore-card:hover .ec-cta i {
+    transform: translateX(4px);
+}
+
+/* Animation d'apparition des cartes */
+.explore-card {
+    animation: cardAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+#card-activites {
+    animation-delay: 0.15s;
+}
+
+#card-hebergements {
+    animation-delay: 0.25s;
+}
+
+#card-boutique {
+    animation-delay: 0.35s;
+}
+
+#card-restaurant {
+    animation-delay: 0.45s;
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Nav active */
+nav a.active {
+    color: #3b82f6;
+    font-weight: 600;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 860px) {
+    .season-page {
+        padding: 110px 24px 70px;
+        gap: 40px;
+    }
+
+    .explore-grid {
+        gap: 18px;
+    }
+
+    .explore-card {
+        height: 300px;
+    }
+
+    .ec-content {
+        padding: 20px 22px;
+    }
+
+    .ec-content h2 {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .season-page {
+        padding: 100px 16px 60px;
+    }
+
+    .explore-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+    }
+
+    .explore-card {
+        height: 280px;
+    }
+
+    .explore-header h1 {
+        font-size: 2rem;
+    }
+
+    .explore-desc {
+        font-size: 0.9rem;
+    }
+}
+

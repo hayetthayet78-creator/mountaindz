@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explorer - Mountain DZ</title>
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/saison.css">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <div class="logo"><a href="accueil.html" style="text-decoration:none;color:inherit;">Mountain<span>DZ</span></a></div>
+
+      <nav class="nav-main">
+        <a href="accueil.html">Accueil</a>
+        <a href="index.html">Activités</a>
+        <a href="boutique.html">Boutique</a>
+        <a href="hebergement.html">Hébergements</a>
+        <a href="restaurant.html">Restaurants & Cafés</a>
+      </nav>
+
+      <div class="nav-right">
+        <div class="account-wrap" id="accountWrap">
+          <button class="btn-account" onclick="toggleAccountDropdown(event)">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+            Mon compte
+            <svg class="account-chevron" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+
+          <!-- Dropdown -->
+          <div class="account-dropdown" id="accountDropdown">
+            <!-- Top arrow pointer -->
+            <div class="dropdown-arrow"></div>
+
+            <!-- Logo / Brand -->
+            <div class="dropdown-brand">
+              
+              <div>
+                <div class="dropdown-brand-name">Mountain<span>DZ</span></div>
+                <div class="dropdown-brand-sub">Espace personnel</div>
+              </div>
+            </div>
+
+            <div class="dropdown-divider"></div>
+
+            <!-- SE CONNECTER button -->
+            <button class="btn-connect" onclick="window.location.href='signin.html'">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/>
+                <polyline points="10 17 15 12 10 7"/>
+                <line x1="15" y1="12" x2="3" y2="12"/>
+              </svg>
+              Se connecter
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+
+            <!-- Nouveau client -->
+            <div class="dropdown-new-client">
+              <p>Nouveau client chez MountainDZ ?</p>
+              <a href="signin.html" class="dropdown-register-link">
+                Créer mon compte
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+
+            <div class="dropdown-divider"></div>
+
+            <!-- Quick links -->
+            <div class="dropdown-links">
+              <a href="#" class="dropdown-link" onclick="closeAccountDropdown()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                  <line x1="3" y1="6" x2="21" y2="6"/>
+                  <path d="M16 10a4 4 0 01-8 0"/>
+                </svg>
+                Mes commandes
+              </a>
+              <a href="#" class="dropdown-link" onclick="closeAccountDropdown()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <rect x="3" y="4" width="18" height="18" rx="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                Mes réservations
+              </a>
+              <a href="#" class="dropdown-link" onclick="closeAccountDropdown()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+                </svg>
+                Mes favoris
+              </a>
+            </div>
+          </div>
+        </div>
+        <button class="btn-reserve" onclick="window.location.href='saison.html'">Explorer →</button>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- PAGE PRINCIPALE -->
+  <section class="season-page">
+
+    <!-- HEADER HERO -->
+    <div class="explore-header">
+      <p class="explore-eyebrow">🏔️ Mountain DZ — Saison 2026</p>
+      <h1>Que souhaitez-vous<br><span>explorer ?</span></h1>
+      <p class="explore-desc">Choisissez une catégorie et commencez votre aventure unique en montagne algérienne</p>
+      <div class="explore-line"></div>
+    </div>
+
+    <!-- GRILLE DES CATÉGORIES -->
+    <div class="explore-grid">
+
+      <!-- ACTIVITÉS -->
+      <a href="index.html" class="explore-card" id="card-activites">
+        <div class="ec-bg activites-bg"></div>
+        <div class="ec-overlay"></div>
+        <div class="ec-content">
+          <div class="ec-icon">🏔️</div>
+          <div class="ec-badge">15+ activités</div>
+          <h2>Activités</h2>
+          <p>Randonnées, ski, escalade, parapente et bien plus encore en pleine nature algérienne</p>
+          <div class="ec-tags">
+            <span>Randonnée</span>
+            <span>Ski</span>
+            <span>Escalade</span>
+          </div>
+          <div class="ec-cta">
+            Explorer <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      </a>
+
+      <!-- HÉBERGEMENTS -->
+      <a href="hebergement.html" class="explore-card" id="card-hebergements">
+        <div class="ec-bg hebergements-bg"></div>
+        <div class="ec-overlay"></div>
+        <div class="ec-content">
+          <div class="ec-icon">🏠</div>
+          <div class="ec-badge">30+ hébergements</div>
+          <h2>Hébergements</h2>
+          <p>Chalets luxueux, hôtels de montagne et gîtes authentiques pour un séjour inoubliable</p>
+          <div class="ec-tags">
+            <span>Chalets</span>
+            <span>Hôtels</span>
+            <span>Gîtes</span>
+          </div>
+          <div class="ec-cta">
+            Explorer <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      </a>
+
+      <!-- BOUTIQUE & FORMATION -->
+      <a href="boutique.html" class="explore-card" id="card-boutique">
+        <div class="ec-bg boutique-bg"></div>
+        <div class="ec-overlay"></div>
+        <div class="ec-content">
+          <div class="ec-icon">🛍️</div>
+          <div class="ec-badge">Équipements & Cours</div>
+          <h2>Boutique & Formation</h2>
+          <p>Équipements certifiés, souvenirs locaux et formations professionnelles de moniteur</p>
+          <div class="ec-tags">
+            <span>Ski</span>
+            <span>Camping</span>
+            <span>Formation</span>
+          </div>
+          <div class="ec-cta">
+            Explorer <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      </a>
+
+      <!-- RESTAURANT & CAFÉTÉRIA -->
+      <a href="restaurant.html" class="explore-card" id="card-restaurant">
+        <div class="ec-bg restaurant-bg"></div>
+        <div class="ec-overlay"></div>
+        <div class="ec-content">
+          <div class="ec-icon">🍽️</div>
+          <div class="ec-badge">20+ restaurants</div>
+          <h2>Restaurant & Cafétéria</h2>
+          <p>Saveurs locales algériennes, plats de montagne et ambiance chaleureuse à chaque repas</p>
+          <div class="ec-tags">
+            <span>Cuisine locale</span>
+            <span>Café</span>
+            <span>Terrasse</span>
+          </div>
+          <div class="ec-cta">
+            Découvrir <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo">Mountain<span>DZ</span></span>
+        <p>L'authenticité algérienne à son sommet. Restaurants, cafés, hébergements — votre montagne, vos saveurs.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <a href="accueil.html">Accueil</a>
+        <a href="hebergement.html">Hébergements</a>
+        <a href="restaurant.html">Restaurants</a>
+        <a href="index.html">Activités</a>
+      </div>
+      <div class="footer-links">
+        <h4>Explorer</h4>
+        <a href="saison.html">Par saison</a>
+        <a href="index.html">Par activité</a>
+        <a href="#">Top expériences</a>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <a href="apropos.html">À propos</a>
+        <a href="nouvelles.html">Nouvelles</a>
+        <a href="emplois.html">Emplois</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 MountainDZ. Tous droits réservés.</span>
+    </div>
+  </footer>
+
+  <script src="api-connector.js"></script>
+  <script src=" "></script>
+  <script>
+    const siteHeader = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      siteHeader.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+    function toggleAccountDropdown(e) {
+      e.stopPropagation();
+      const drop = document.getElementById('accountDropdown');
+      const btn  = document.querySelector('.btn-account');
+      drop.classList.toggle('open', !drop.classList.contains('open'));
+      btn.classList.toggle('open', !btn.classList.contains('open'));
+    }
+    document.addEventListener('click', (e) => {
+      const wrap = document.getElementById('accountWrap');
+      if (wrap && !wrap.contains(e.target)) {
+        document.getElementById('accountDropdown').classList.remove('open');
+        document.querySelector('.btn-account').classList.remove('open');
+      }
+    });
+  </script>
+
+</body>
+
+</html>

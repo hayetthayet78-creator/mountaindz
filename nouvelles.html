@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nouvelles – MountainDZ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0a1628;
+      --deep: #0d2144;
+      --sky: #2196f3;
+      --accent: #3ab5ff;
+      --white: #ffffff;
+      --glass: rgba(255, 255, 255, 0.07);
+      --glass-border: rgba(255, 255, 255, 0.13);
+      --nav-h: 68px;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* ── Scrollbar — identique restaurant ── */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0d1f3c;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #3b8bfa;
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2a75e8;
+    }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: var(--nav-h);
+      background: transparent;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .site-header.scrolled {
+      background: rgba(8, 18, 36, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07);
+    }
+
+    .header-inner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      padding: 0 48px;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      flex-shrink: 0;
+      z-index: 1;
+      font-family: var(--font-body);
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-main {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .nav-main a {
+      position: relative;
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      padding: 7.9px 0;
+      font-size: 0.94rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-main a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 3.5px;
+      background: rgb(53, 87, 237);
+      transition: width 0.5s ease;
+      z-index: 10;
+    }
+
+    .nav-main a:hover::after,
+    .nav-main a.active::after {
+      width: 100%;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    /* Account dropdown */
+    .account-wrap {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-account {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.88rem;
+      font-family: var(--font-body);
+      cursor: pointer;
+      padding: 7px 12px;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .btn-account:hover {
+      background: rgba(255, 255, 255, 0.10);
+      color: #fff;
+    }
+
+    .btn-account.open {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    .account-chevron {
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+      opacity: 0.65;
+    }
+
+    .btn-account.open .account-chevron {
+      transform: rotate(180deg);
+      opacity: 1;
+    }
+
+    .account-dropdown {
+      position: absolute;
+      top: calc(100% + 16px);
+      right: 0;
+      width: 280px;
+      background: linear-gradient(160deg, rgba(13, 28, 55, 0.97) 0%, rgba(8, 18, 36, 0.99) 100%);
+      backdrop-filter: blur(28px);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 20px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+      padding: 20px 20px 16px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px) scale(0.97);
+      transform-origin: top right;
+      transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .account-dropdown.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .dropdown-arrow {
+      position: absolute;
+      top: -7px;
+      right: 20px;
+      width: 14px;
+      height: 14px;
+      background: rgba(13, 28, 55, 0.97);
+      border-left: 1px solid rgba(255, 255, 255, 0.13);
+      border-top: 1px solid rgba(255, 255, 255, 0.13);
+      transform: rotate(45deg);
+      border-radius: 3px 0 0 0;
+    }
+
+    .dropdown-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .dropdown-brand-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .dropdown-brand-name span {
+      color: #3b8bfa;
+    }
+
+    .dropdown-brand-sub {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.40);
+      margin-top: 2px;
+      letter-spacing: 0.03em;
+    }
+
+    .dropdown-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.09);
+      margin: 14px 0;
+    }
+
+    .btn-connect {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      width: 100%;
+      padding: 13px 18px;
+      background: #2ea84f;
+      border: none;
+      border-radius: 50px;
+      color: #fff;
+      font-size: 0.92rem;
+      font-weight: 600;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 4px 18px rgba(46, 168, 79, 0.35);
+      margin-bottom: 14px;
+    }
+
+    .btn-connect:hover {
+      background: #3fc460;
+      transform: translateY(-1px);
+    }
+
+    .dropdown-new-client {
+      text-align: center;
+    }
+
+    .dropdown-new-client p {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 8px;
+    }
+
+    .dropdown-register-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #3b8bfa;
+      text-decoration: none;
+      transition: color 0.2s, gap 0.2s;
+    }
+
+    .dropdown-register-link:hover {
+      color: #7db8ff;
+      gap: 8px;
+    }
+
+    .dropdown-links {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .dropdown-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
+      border-radius: 10px;
+      color: rgba(255, 255, 255, 0.60);
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 500;
+      transition: background 0.18s, color 0.18s;
+    }
+
+    .dropdown-link svg {
+      stroke: rgba(255, 255, 255, 0.40);
+      flex-shrink: 0;
+      transition: stroke 0.18s;
+    }
+
+    .dropdown-link:hover {
+      background: rgba(255, 255, 255, 0.07);
+      color: #fff;
+    }
+
+    .dropdown-link:hover svg {
+      stroke: #3b8bfa;
+    }
+
+    .btn-reserve {
+      background: #2ea84f;
+      color: #fff;
+      border: none;
+      padding: 9px 22px;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      font-family: var(--font-body);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-reserve:hover {
+      background:#2ea84f;
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 72vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* ── Hero — style identique à accueil ── */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('images/nouvelles.jpg') center/cover no-repeat;
+      transform: scale(1.06);
+      animation: slowZoom 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes slowZoom {
+      from {
+        transform: scale(1.06);
+      }
+
+      to {
+        transform: scale(1.12);
+      }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right,
+          rgba(0, 0, 0, 0.80) 0%,
+          rgba(0, 0, 0, 0.55) 50%,
+          rgba(0, 0, 0, 0.25) 100%);
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    .orb-1 {
+      width: 480px;
+      height: 480px;
+      background: rgba(33, 150, 243, 0.11);
+      top: -100px;
+      right: 0;
+      animation: orbFloat 9s ease-in-out infinite;
+    }
+
+    .orb-2 {
+      width: 260px;
+      height: 260px;
+      background: rgba(58, 181, 255, 0.07);
+      bottom: 30px;
+      left: 20%;
+      animation: orbFloat 7s ease-in-out infinite 2s;
+    }
+
+    @keyframes orbFloat {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-25px)
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 80px;
+      max-width: 780px;
+      animation: heroIn 1s ease both;
+    }
+
+    @keyframes heroIn {
+      from {
+        opacity: 0;
+        transform: translateY(40px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(12px);
+      padding: 7px 20px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 32px;
+    }
+
+    .hero-badge .dot {
+      width: 7px;
+      height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 1.6s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .2
+      }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 22px;
+      color: #fff;
+      letter-spacing: -0.01em;
+      text-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: #3ab5ff;
+    }
+
+    .hero-desc {
+      font-size: 17px;
+      color: rgba(255, 255, 255, 0.70);
+      line-height: 1.75;
+      max-width: 560px;
+      font-weight: 400;
+    }
+
+    /* ── SECTION BASE ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 48px;
+    }
+
+    .section-title em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    /* ── FEATURED ── */
+    .featured {
+      background: linear-gradient(160deg, #0d2144 0%, #0a1628 60%);
+      padding: 100px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -150px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(33, 150, 243, 0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .featured-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 28px;
+      margin-bottom: 28px;
+    }
+
+    .news-card-big {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+    }
+
+    .news-card-big:hover {
+      transform: translateY(-6px);
+      border-color: rgba(58, 181, 255, 0.28);
+      box-shadow: 0 22px 60px rgba(0, 0, 0, .35);
+    }
+
+    .news-card-big .img-wrap {
+      height: 320px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .news-card-big .img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s;
+    }
+
+    .news-card-big:hover .img-wrap img {
+      transform: scale(1.06);
+    }
+
+    .news-card-big .img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 30%, rgba(10, 22, 40, 0.95));
+    }
+
+    .news-card-big .card-body {
+      padding: 28px;
+    }
+
+    .news-side {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .news-card-sm {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      transition: transform .3s, border-color .3s;
+    }
+
+    .news-card-sm:hover {
+      transform: translateX(6px);
+      border-color: rgba(58, 181, 255, 0.28);
+    }
+
+    .news-card-sm .sm-img {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .news-card-sm .sm-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s;
+    }
+
+    .news-card-sm:hover .sm-img img {
+      transform: scale(1.08);
+    }
+
+    .news-card-sm .sm-body {
+      padding: 18px;
+    }
+
+    .news-date {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .news-cat {
+      display: inline-block;
+      background: rgba(33, 150, 243, 0.14);
+      border: 1px solid rgba(58, 181, 255, 0.22);
+      color: var(--accent);
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .card-body h3,
+    .sm-body h3 {
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .card-body h3 {
+      font-size: 20px;
+    }
+
+    .sm-body h3 {
+      font-size: 15px;
+    }
+
+    .card-body p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.58);
+      line-height: 1.65;
+    }
+
+    .sm-body p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.52);
+      line-height: 1.55;
+    }
+
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      transition: gap .2s;
+    }
+
+    .read-more:hover {
+      gap: 10px;
+    }
+
+    /* ── ALL NEWS ── */
+    .all-news {
+      background: var(--navy);
+      padding: 100px 80px;
+      position: relative;
+    }
+
+    .all-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .filter-btn {
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.62);
+      transition: all .22s;
+      backdrop-filter: blur(8px);
+      font-family: var(--font-body);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: linear-gradient(135deg, var(--sky), var(--accent));
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(33, 150, 243, .35);
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .news-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      border-radius: 22px;
+      overflow: hidden;
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+    }
+
+    .news-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(58, 181, 255, 0.28);
+      box-shadow: 0 22px 56px rgba(0, 0, 0, .35);
+    }
+
+    .news-card .card-img {
+      height: 190px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .news-card .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s;
+    }
+
+    .news-card:hover .card-img img {
+      transform: scale(1.07);
+    }
+
+    .news-card .card-body {
+      padding: 22px;
+    }
+
+    .news-card .card-body h3 {
+      font-size: 17px;
+    }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      background: linear-gradient(135deg, #0d2144, #091833);
+      padding: 80px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .newsletter h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .newsletter h2 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .newsletter p {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 36px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .nl-form {
+      display: flex;
+      gap: 12px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .nl-form input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 12px;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 14px 18px;
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    .nl-form input:focus {
+      border-color: var(--accent);
+    }
+
+    .nl-form input::placeholder {
+      color: rgba(255, 255, 255, 0.38);
+    }
+
+    .nl-form input.error {
+      border-color: #ff5c5c;
+    }
+
+    .nl-btn {
+      background: linear-gradient(135deg, var(--sky), var(--accent));
+      color: #fff;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(33, 150, 243, .38);
+      transition: transform .2s;
+      font-family: var(--font-body);
+    }
+
+    .nl-btn:hover {
+      transform: scale(1.04);
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(13, 33, 68, 0.95);
+      border: 1px solid rgba(58, 181, 255, 0.35);
+      backdrop-filter: blur(20px);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, .4);
+      z-index: 9999;
+      transition: transform .4s ease;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .toast.error {
+      border-color: rgba(255, 92, 92, 0.5);
+    }
+
+
+    /* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+    .footer {
+      position: relative;
+      z-index: 10;
+      background: #060e1e;
+      padding: 60px 48px 28px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand p {
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 0.88rem;
+      margin-top: 14px;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-links h4 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .footer-links a {
+      display: block;
+      color: rgba(255, 255, 255, 0.45);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--blue-accent);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      display: flex;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.40);
+      font-size: 0.82rem;
+    }
+
+    /* ── Shared footer design (apropos/contact style) ── */
+    .site-footer {
+      background: #060e1c;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 60px 80px 30px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.7;
+      margin-top: 14px;
+    }
+
+    .footer-col h4 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.35);
+      margin-bottom: 18px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col ul a {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.55);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .footer-col ul a:hover {
+      color: #3b8bfa;
+    }
+
+    .site-footer .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding-top: 24px;
+    }
+
+    .site-footer .footer-bottom p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    .site-footer .logo,
+    .site-footer .logo:hover,
+    .site-footer .logo:focus,
+    .site-footer .logo:active,
+    .site-footer .logo:visited {
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a class="logo" href="index.html">Mountain<span>DZ</span></a>
+      <nav class="nav-main">
+        <a href="accueil.html">Accueil</a>
+        <a href="index.html">Activités</a>
+        <a href="boutique.html">Boutique</a>
+        <a href="hebergement.html">Hébergements</a>
+        <a href="restaurant.html">Restaurants & Cafés</a>
+      </nav>
+      <div class="nav-right">
+        <div class="account-wrap" id="accountWrap">
+          <button class="btn-account" onclick="toggleAccountDropdown(event)">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+            </svg>
+            Mon compte
+            <svg class="account-chevron" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"
+              viewBox="0 0 24 24">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          <div class="account-dropdown" id="accountDropdown">
+            <div class="dropdown-arrow"></div>
+            <div class="dropdown-brand">
+              <div>
+                <div class="dropdown-brand-name">Mountain<span>DZ</span></div>
+                <div class="dropdown-brand-sub">Espace personnel</div>
+              </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <button class="btn-connect" onclick="window.location.href='signin.html'">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4" />
+                <polyline points="10 17 15 12 10 7" />
+                <line x1="15" y1="12" x2="3" y2="12" />
+              </svg>
+              Se connecter
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+            <div class="dropdown-new-client">
+              <p>Nouveau client chez MountainDZ ?</p>
+              <a href="signin.html" class="dropdown-register-link">
+                Créer mon compte
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-links">
+              <a href="#" class="dropdown-link" onclick="closeAccountDropdown()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <path d="M16 10a4 4 0 01-8 0" />
+                </svg>
+                Mes commandes
+              </a>
+              <a href="#" class="dropdown-link" onclick="closeAccountDropdown()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <rect x="3" y="4" width="18" height="18" rx="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+                Mes réservations
+              </a>
+              <a href="#" class="dropdown-link" onclick="closeAccountDropdown()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path
+                    d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+                </svg>
+                Mes favoris
+              </a>
+            </div>
+          </div>
+        </div>
+        <button class="btn-reserve" onclick="window.location.href='#'">Réserver en ligne →</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><span class="dot"></span> Actualités 2026</div>
+      <h1>Les <em>Nouvelles</em><br>MountainDZ</h1>
+      <p class="hero-desc">Restez informés des dernières actualités, ouvertures de stations, événements et offres
+        exclusives de notre plateforme.</p>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <section class="featured">
+    <div class="featured-inner">
+      <div class="section-label">À la une</div>
+      <h2 class="section-title">Articles <em>featured</em></h2>
+      <div class="featured-grid">
+        <div class="news-card-big">
+          <div class="img-wrap">
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=80" alt="Tikjda" />
+            <div class="img-overlay"></div>
+          </div>
+          <div class="card-body">
+            <div class="news-cat">Stations</div>
+            <div class="news-date">12 Janvier 2026</div>
+            <h3>Ouverture officielle de la saison ski 2026 à Tikjda</h3>
+            <p>La station de Tikjda inaugure sa nouvelle saison hivernale avec des infrastructures entièrement rénovées,
+              8 nouvelles pistes et un télésiège de dernière génération pour 1 200 skieurs par heure.</p>
+            <a href="#" class="read-more">Lire l'article →</a>
+          </div>
+        </div>
+        <div class="news-side">
+          <div class="news-card-sm">
+            <div class="sm-img"><img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=400&q=80"
+                alt="Chalet" /></div>
+            <div class="sm-body">
+              <div class="news-cat">Hébergements</div>
+              <div class="news-date">5 Jan. 2026</div>
+              <h3>Nouveau chalet de luxe inauguré à Chréa</h3>
+              <p>12 chambres panoramiques en pleine forêt de cèdres.</p>
+              <a href="#" class="read-more">Lire →</a>
+            </div>
+          </div>
+          <div class="news-card-sm">
+            <div class="sm-img"><img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&q=80"
+                alt="App" /></div>
+            <div class="sm-body">
+              <div class="news-cat">Tech</div>
+              <div class="news-date">28 Déc. 2025</div>
+              <h3>MountainDZ lance son app mobile</h3>
+              <p>5 000 téléchargements en un mois, note 4.8 étoiles.</p>
+              <a href="#" class="read-more">Lire →</a>
+            </div>
+          </div>
+          <div class="news-card-sm">
+            <div class="sm-img"><img src="https://images.unsplash.com/photo-1478827387698-1527781a4887?w=400&q=80"
+                alt="Camping" /></div>
+            <div class="sm-body">
+              <div class="news-cat">Activités</div>
+              <div class="news-date">15 Déc. 2025</div>
+              <h3>Glamping étoilé en Kabylie : l'expérience ultime</h3>
+              <p>Nos nouvelles tentes de luxe à Tala Guilef sont ouvertes.</p>
+              <a href="#" class="read-more">Lire →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALL NEWS -->
+  <section class="all-news">
+    <div class="all-inner">
+      <div class="section-label">Toutes les actualités</div>
+      <h2 class="section-title">Dernières <em>nouvelles</em></h2>
+      <div class="filter-bar" id="filterBar">
+        <button class="filter-btn active" data-cat="all">Tout</button>
+        <button class="filter-btn" data-cat="Stations">Stations</button>
+        <button class="filter-btn" data-cat="Hébergements">Hébergements</button>
+        <button class="filter-btn" data-cat="Activités">Activités</button>
+        <button class="filter-btn" data-cat="Tech">Tech</button>
+        <button class="filter-btn" data-cat="Événements">Événements</button>
+      </div>
+      <div class="news-grid" id="newsGrid">
+        <div class="news-card" data-cat="Événements">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=80"
+              alt="" /></div>
+          <div class="card-body">
+            <div class="news-cat">Événements</div>
+            <div class="news-date">8 Jan. 2026</div>
+            <h3>Festival de montagne annuel — Février 2026</h3>
+            <p>MountainDZ organise son premier festival de montagne à Tikjda avec concerts, randonnées guidées et
+              dégustations.</p>
+            <a href="#" class="read-more">Lire →</a>
+          </div>
+        </div>
+        <div class="news-card" data-cat="Hébergements">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80"
+              alt="" /></div>
+          <div class="card-body">
+            <div class="news-cat">Hébergements</div>
+            <div class="news-date">3 Jan. 2026</div>
+            <h3>Hôtel Le Belvédère de Seraidi — Rénovation complète</h3>
+            <p>L'hôtel emblématique de Seraidi rouvre ses portes après 8 mois de travaux avec un spa de 600 m².</p>
+            <a href="#" class="read-more">Lire →</a>
+          </div>
+        </div>
+        <div class="news-card" data-cat="Stations">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80"
+              alt="" /></div>
+          <div class="card-body">
+            <div class="news-cat">Stations</div>
+            <div class="news-date">20 Déc. 2025</div>
+            <h3>Aïn El Hammam rejoint le réseau MountainDZ</h3>
+            <p>La belle commune de Tizi Ouzou intègre notre plateforme avec 6 nouveaux hébergements et 12 activités.</p>
+            <a href="#" class="read-more">Lire →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <div class="newsletter">
+    <h2>Ne ratez aucune<br><em>nouvelle</em></h2>
+    <p>Abonnez-vous à notre newsletter et recevez chaque semaine les meilleures offres et actualités MountainDZ.</p>
+    <div class="nl-form">
+      <input type="email" id="nlEmail" placeholder="votre@email.com" />
+      <button class="nl-btn" onclick="subscribeNewsletter()">S'abonner →</button>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="logo" href="index.html">Mountain<span>DZ</span></a>
+        <p>L'authenticité algérienne à son sommet.<br>Hébergements, activités et expériences uniques.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="accueil.html">Accueil</a></li>
+          <li><a href="hebergement.html">Hébergements</a></li>
+          <li><a href="restaurant.html">Restaurants</a></li>
+          <li><a href="index.html">Activités</a></li>
+          <li><a href="boutique.html">Boutique</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="apropos.html">À propos</a></li>
+          <li><a href="nouvelles.html">Nouvelles</a></li>
+          <li><a href="emplois.html">Emplois</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 MountainDZ. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Sticky header ── */
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    /* ── Account dropdown ── */
+    function toggleAccountDropdown(e) {
+      e.stopPropagation();
+      const btn = document.querySelector('.btn-account');
+      const dropdown = document.getElementById('accountDropdown');
+      const isOpen = dropdown.classList.contains('open');
+      btn.classList.toggle('open', !isOpen);
+      dropdown.classList.toggle('open', !isOpen);
+    }
+    function closeAccountDropdown() {
+      document.querySelector('.btn-account').classList.remove('open');
+      document.getElementById('accountDropdown').classList.remove('open');
+    }
+    document.addEventListener('click', closeAccountDropdown);
+    document.getElementById('accountWrap').addEventListener('click', e => e.stopPropagation());
+
+    /* ── Toast helper ── */
+    function showToast(msg, isError = false) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.className = 'toast' + (isError ? ' error' : '');
+      void toast.offsetWidth;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4000);
+    }
+
+    /* ── News filter ── */
+    document.getElementById('filterBar').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.cat;
+      document.querySelectorAll('#newsGrid .news-card').forEach(card => {
+        const show = cat === 'all' || card.dataset.cat === cat;
+        card.style.display = show ? '' : 'none';
+      });
+    });
+
+    /* ── Newsletter subscription ── */
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+    function subscribeNewsletter() {
+      const input = document.getElementById('nlEmail');
+      const val = input.value.trim();
+      input.classList.remove('error');
+      if (!val) {
+        input.classList.add('error');
+        showToast('⚠️ Veuillez entrer votre adresse email.', true);
+        return;
+      }
+      if (!isValidEmail(val)) {
+        input.classList.add('error');
+        showToast('⚠️ Adresse email invalide.', true);
+        return;
+      }
+      input.value = '';
+      showToast('✅ Inscription confirmée ! Bienvenue dans la communauté MountainDZ.');
+    }
+  </script>
+
+  <script src="auth.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emplois – MountainDZ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0a1628;
+      --deep: #0d2144;
+      --sky: #2196f3;
+      --accent: #3ab5ff;
+      --white: #ffffff;
+      --glass: rgba(255, 255, 255, 0.07);
+      --glass-border: rgba(255, 255, 255, 0.13);
+      --nav-h: 68px;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* ── Scrollbar — identique restaurant ── */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0d1f3c;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #3b8bfa;
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2a75e8;
+    }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: var(--nav-h);
+      background: transparent;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .site-header.scrolled {
+      background: rgba(8, 18, 36, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07);
+    }
+
+    .header-inner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      padding: 0 48px;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      flex-shrink: 0;
+      z-index: 1;
+      font-family: var(--font-body);
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-main {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .nav-main a {
+      position: relative;
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      padding: 7.9px 0;
+      font-size: 0.94rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-main a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 3.5px;
+      background: rgb(53, 87, 237);
+      transition: width 0.5s ease;
+      z-index: 10;
+    }
+
+    .nav-main a:hover::after,
+    .nav-main a.active::after {
+      width: 100%;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    /* Account dropdown */
+    .account-wrap {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-account {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.88rem;
+      font-family: var(--font-body);
+      cursor: pointer;
+      padding: 7px 12px;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .btn-account:hover {
+      background: rgba(255, 255, 255, 0.10);
+      color: #fff;
+    }
+
+    .btn-account.open {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    .account-chevron {
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+      opacity: 0.65;
+    }
+
+    .btn-account.open .account-chevron {
+      transform: rotate(180deg);
+      opacity: 1;
+    }
+
+    .account-dropdown {
+      position: absolute;
+      top: calc(100% + 16px);
+      right: 0;
+      width: 280px;
+      background: linear-gradient(160deg, rgba(13, 28, 55, 0.97) 0%, rgba(8, 18, 36, 0.99) 100%);
+      backdrop-filter: blur(28px);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 20px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+      padding: 20px 20px 16px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px) scale(0.97);
+      transform-origin: top right;
+      transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .account-dropdown.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .dropdown-arrow {
+      position: absolute;
+      top: -7px;
+      right: 20px;
+      width: 14px;
+      height: 14px;
+      background: rgba(13, 28, 55, 0.97);
+      border-left: 1px solid rgba(255, 255, 255, 0.13);
+      border-top: 1px solid rgba(255, 255, 255, 0.13);
+      transform: rotate(45deg);
+      border-radius: 3px 0 0 0;
+    }
+
+    .dropdown-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .dropdown-brand-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .dropdown-brand-name span {
+      color: #3b8bfa;
+    }
+
+    .dropdown-brand-sub {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.40);
+      margin-top: 2px;
+      letter-spacing: 0.03em;
+    }
+
+    .dropdown-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.09);
+      margin: 14px 0;
+    }
+
+    .btn-connect {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      width: 100%;
+      padding: 13px 18px;
+      background: #2ea84f;
+      border: none;
+      border-radius: 50px;
+      color: #fff;
+      font-size: 0.92rem;
+      font-weight: 600;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 4px 18px rgba(46, 168, 79, 0.35);
+      margin-bottom: 14px;
+    }
+
+    .btn-connect:hover {
+      background: #3fc460;
+      transform: translateY(-1px);
+    }
+
+    .dropdown-new-client {
+      text-align: center;
+    }
+
+    .dropdown-new-client p {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 8px;
+    }
+
+    .dropdown-register-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #3b8bfa;
+      text-decoration: none;
+      transition: color 0.2s, gap 0.2s;
+    }
+
+    .dropdown-register-link:hover {
+      color: #7db8ff;
+      gap: 8px;
+    }
+
+    .dropdown-links {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .dropdown-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
+      border-radius: 10px;
+      color: rgba(255, 255, 255, 0.60);
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 500;
+      transition: background 0.18s, color 0.18s;
+    }
+
+    .dropdown-link svg {
+      stroke: rgba(255, 255, 255, 0.40);
+      flex-shrink: 0;
+      transition: stroke 0.18s;
+    }
+
+    .dropdown-link:hover {
+      background: rgba(255, 255, 255, 0.07);
+      color: #fff;
+    }
+
+    .dropdown-link:hover svg {
+      stroke: #3b8bfa;
+    }
+
+    .btn-reserve {
+      background: #2ea84f;
+      color: #fff;
+      border: none;
+      padding: 9px 22px;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      font-family: var(--font-body);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-reserve:hover {
+      background: #2ea84f;
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+
+
+    }
+
+    /* ── Hero — style identique à accueil ── */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('images/emplois.jpg') center/cover no-repeat;
+      transform: scale(1.06);
+      animation: slowZoom 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes slowZoom {
+      from {
+        transform: scale(1.06);
+      }
+
+      to {
+        transform: scale(1.12);
+      }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right,
+          rgba(0, 0, 0, 0.80) 0%,
+          rgba(0, 0, 0, 0.55) 50%,
+          rgba(0, 0, 0, 0.25) 100%);
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    .orb-1 {
+      width: 450px;
+      height: 450px;
+      background: rgba(33, 150, 243, 0.11);
+      top: -80px;
+      right: 5%;
+      animation: orbFloat 9s ease-in-out infinite;
+    }
+
+    .orb-2 {
+      width: 280px;
+      height: 280px;
+      background: rgba(58, 181, 255, 0.07);
+      bottom: 20px;
+      left: 15%;
+      animation: orbFloat 7s ease-in-out infinite 2s;
+    }
+
+    @keyframes orbFloat {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-25px)
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 80px;
+      max-width: 780px;
+      animation: heroIn 1s ease both;
+    }
+
+    @keyframes heroIn {
+      from {
+        opacity: 0;
+        transform: translateY(40px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(12px);
+      padding: 7px 20px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 32px;
+    }
+
+    .hero-badge .dot {
+      width: 7px;
+      height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 1.6s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .2
+      }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 22px;
+      color: #fff;
+      letter-spacing: -0.01em;
+      text-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: #3ab5ff;
+    }
+
+    .hero-desc {
+      font-size: 17px;
+      color: rgba(255, 255, 255, 0.70);
+      line-height: 1.75;
+      max-width: 580px;
+      font-weight: 400;
+      margin-bottom: 40px;
+    }
+
+    .hero-perks {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .perk {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(10px);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* ── STATS BANNER ── */
+    .stats-banner {
+      background: rgba(13, 28, 55, 0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      ;
+      padding: 36px 80px;
+      display: flex;
+      justify-content: space-around;
+      gap: 24px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.80);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ── SECTION BASE ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .section-title em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    /* ── JOBS ── */
+    .jobs-section {
+      background: linear-gradient(160deg, #0d2144 0%, #0a1628 60%);
+      padding: 100px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .jobs-section::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -150px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(33, 150, 243, 0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .jobs-header {
+      margin-bottom: 56px;
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .filter-btn {
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.62);
+      transition: all .22s;
+      backdrop-filter: blur(8px);
+      font-family: var(--font-body);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: linear-gradient(135deg, var(--sky), var(--accent));
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(33, 150, 243, .35);
+    }
+
+    .jobs-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      max-width: 900px;
+    }
+
+    .job-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .job-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--sky), var(--accent));
+      opacity: 0;
+      transition: opacity .3s;
+      border-radius: 3px 0 0 3px;
+    }
+
+    .job-card:hover {
+      transform: translateX(6px);
+      border-color: rgba(58, 181, 255, 0.28);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, .3);
+    }
+
+    .job-card:hover::before {
+      opacity: 1;
+    }
+
+    .job-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .job-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .job-meta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .job-meta span {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.55);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .job-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .job-tag {
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 11.5px;
+      font-weight: 600;
+      background: rgba(33, 150, 243, 0.14);
+      border: 1px solid rgba(58, 181, 255, 0.22);
+      color: var(--accent);
+    }
+
+    .job-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+    }
+
+    .job-salary {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      white-space: nowrap;
+    }
+
+    .job-salary span {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.45);
+      display: block;
+    }
+
+    .btn-postuler {
+      background: linear-gradient(135deg, var(--sky), var(--accent));
+      color: #fff;
+      border: none;
+      padding: 11px 22px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(33, 150, 243, .35);
+      transition: transform .2s, box-shadow .2s;
+      font-family: var(--font-body);
+    }
+
+    .btn-postuler:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(33, 150, 243, .50);
+    }
+
+    /* ── CULTURE ── */
+    .culture {
+      background: var(--navy);
+      padding: 100px 80px;
+      position: relative;
+    }
+
+    .culture-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .culture-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .culture-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(16px);
+      border-radius: 18px;
+      padding: 24px;
+      text-align: center;
+      transition: transform .3s, border-color .3s;
+    }
+
+    .culture-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(58, 181, 255, 0.28);
+    }
+
+    .culture-icon {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .culture-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .culture-card p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.52);
+      line-height: 1.6;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: linear-gradient(135deg, #0d2144, #091833);
+      padding: 80px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .cta-section h2 {
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .cta-section h2 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 36px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-cta {
+      background: linear-gradient(135deg, var(--sky), var(--accent));
+      color: #fff;
+      border: none;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(33, 150, 243, .4);
+      transition: transform .2s, box-shadow .2s;
+      font-family: var(--font-body);
+    }
+
+    .btn-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(33, 150, 243, .55);
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.70);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal {
+      background: linear-gradient(160deg, rgba(13, 28, 55, 0.98) 0%, rgba(8, 18, 36, 0.99) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 24px;
+      padding: 40px;
+      width: 100%;
+      max-width: 520px;
+      margin: 24px;
+      position: relative;
+      transform: translateY(30px) scale(0.97);
+      transition: transform .3s ease;
+    }
+
+    .modal-overlay.open .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 8px;
+      color: rgba(255, 255, 255, 0.6);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background .2s, color .2s;
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+    }
+
+    .modal h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .modal-job-title {
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+
+    .modal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .modal-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.42);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 10px;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 11px 14px;
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255, 255, 255, 0.28);
+    }
+
+    .form-group input.error,
+    .form-group textarea.error {
+      border-color: #ff5c5c;
+    }
+
+    .form-group textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, var(--sky), var(--accent));
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--font-body);
+      box-shadow: 0 4px 16px rgba(33, 150, 243, .38);
+      transition: transform .2s, box-shadow .2s;
+      margin-top: 4px;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(33, 150, 243, .52);
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(13, 33, 68, 0.95);
+      border: 1px solid rgba(58, 181, 255, 0.35);
+      backdrop-filter: blur(20px);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, .4);
+      z-index: 9999;
+      transition: transform .4s ease;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .toast.error {
+      border-color: rgba(255, 92, 92, 0.5);
+    }
+
+    /* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+    .footer {
+      position: relative;
+      z-index: 10;
+      background: #060e1e;
+      padding: 60px 48px 28px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand p {
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 0.88rem;
+      margin-top: 14px;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-links h4 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .footer-links a {
+      display: block;
+      color: rgba(255, 255, 255, 0.45);
+      text-decoration: none;
+      font-size: 0.88rem;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--blue-accent);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      display: flex;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.40);
+      font-size: 0.82rem;
+    }
+
+    /* ── Shared footer design (apropos/contact style) ── */
+    .site-footer {
+      background: #060e1c;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 60px 80px 30px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.7;
+      margin-top: 14px;
+    }
+
+    .footer-col h4 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.35);
+      margin-bottom: 18px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col ul a {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.55);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .footer-col ul a:hover {
+      color: #3b8bfa;
+    }
+
+    .site-footer .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding-top: 24px;
+    }
+
+    .site-footer .footer-bottom p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    .site-footer .logo,
+    .site-footer .logo:hover,
+    .site-footer .logo:focus,
+    .site-footer .logo:active,
+    .site-footer .logo:visited {
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a class="logo" href="index.html">Mountain<span>DZ</span></a>
+      <nav class="nav-main">
+        <a href="accueil.html">Accueil</a>
+        <a href="index.html">Activités</a>
+        <a href="boutique.html">Boutique</a>
+        <a href="hebergement.html">Hébergements</a>
+        <a href="restaurant.html">Restaurants & Cafés</a>
+      </nav>
+      <div class="nav-right">
+        <div class="account-wrap" id="accountWrap">
+          <button class="btn-account" onclick="toggleAccountDropdown(event)">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+            </svg>
+            Mon compte
+            <svg class="account-chevron" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"
+              viewBox="0 0 24 24">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          <div class="account-dropdown" id="accountDropdown">
+            <div class="dropdown-arrow"></div>
+            <div class="dropdown-brand">
+              <div>
+                <div class="dropdown-brand-name">Mountain<span>DZ</span></div>
+                <div class="dropdown-brand-sub">Espace personnel</div>
+              </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <button class="btn-connect" onclick="window.location.href='signin.html'">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4" />
+                <polyline points="10 17 15 12 10 7" />
+                <line x1="15" y1="12" x2="3" y2="12" />
+              </svg>
+              Se connecter
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+            <div class="dropdown-new-client">
+              <p>Nouveau client chez MountainDZ ?</p>
+              <a href="signin.html" class="dropdown-register-link">
+                Créer mon compte
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-links">
+              <a href="#" class="dropdown-link" onclick="closeAccountDropdown()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <path d="M16 10a4 4 0 01-8 0" />
+                </svg>
+                Mes commandes
+              </a>
+              <a href="#" class="dropdown-link" onclick="closeAccountDropdown()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <rect x="3" y="4" width="18" height="18" rx="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+                Mes réservations
+              </a>
+              <a href="#" class="dropdown-link" onclick="closeAccountDropdown()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path
+                    d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+                </svg>
+                Mes favoris
+              </a>
+            </div>
+          </div>
+        </div>
+        <button class="btn-reserve" onclick="window.location.href='#'">Réserver en ligne →</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><span class="dot"></span> On recrute</div>
+      <h1>Rejoins <em>l'aventure</em><br>MountainDZ</h1>
+      <p class="hero-desc">Tu es passionné par la montagne, le voyage et l'innovation ? Viens construire avec nous la
+        plateforme de tourisme de montagne de demain.</p>
+      <div class="hero-perks">
+        <div class="perk">🏔️ Équipe passionnée</div>
+        <div class="perk">🌍 Impact national</div>
+        <div class="perk">💡 Innovation quotidienne</div>
+        <div class="perk">🎿 Avantages nature</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-banner">
+    <div class="stat-item">
+      <div class="stat-num">30</div>
+      <div class="stat-label">Employés</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Postes ouverts</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">4.9</div>
+      <div class="stat-label">Note Glassdoor</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Remote possible</div>
+    </div>
+  </div>
+
+  <!-- JOBS -->
+  <section class="jobs-section">
+    <div class="jobs-header">
+      <div class="section-label">Postes disponibles</div>
+      <h2 class="section-title">Nos offres d'<em>emploi</em></h2>
+    </div>
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-cat="all">Tous</button>
+      <button class="filter-btn" data-cat="Terrain">Terrain</button>
+      <button class="filter-btn" data-cat="Tech">Tech</button>
+      <button class="filter-btn" data-cat="Marketing">Marketing</button>
+      <button class="filter-btn" data-cat="Management">Management</button>
+    </div>
+    <div class="jobs-grid" id="jobsGrid">
+
+      <div class="job-card" data-cat="Terrain">
+        <div>
+          <div class="job-icon">🏔️</div>
+          <h3>Guide de Montagne Senior</h3>
+          <div class="job-meta">
+            <span>📍 Tikjda, Bouira</span>
+            <span>⏰ Temps plein</span>
+            <span>🗓️ Expérience : 2 ans min.</span>
+          </div>
+          <div class="job-tags">
+            <span class="job-tag">Terrain</span>
+            <span class="job-tag">Nature</span>
+            <span class="job-tag">Leadership</span>
+          </div>
+        </div>
+        <div class="job-right">
+          <div class="job-salary">65 000 DZD<span>/ mois</span></div>
+          <button class="btn-postuler" onclick="openModal('Guide de Montagne Senior')">Postuler →</button>
+        </div>
+      </div>
+
+      <div class="job-card" data-cat="Tech">
+        <div>
+          <div class="job-icon">💻</div>
+          <h3>Développeur Web Front-end</h3>
+          <div class="job-meta">
+            <span>📍 Alger (Remote)</span>
+            <span>⏰ Temps plein</span>
+            <span>🗓️ Expérience : 1 an min.</span>
+          </div>
+          <div class="job-tags">
+            <span class="job-tag">Tech</span>
+            <span class="job-tag">React</span>
+            <span class="job-tag">Remote</span>
+          </div>
+        </div>
+        <div class="job-right">
+          <div class="job-salary">90 000 DZD<span>/ mois</span></div>
+          <button class="btn-postuler" onclick="openModal('Développeur Web Front-end')">Postuler →</button>
+        </div>
+      </div>
+
+      <div class="job-card" data-cat="Management">
+        <div>
+          <div class="job-icon">🏨</div>
+          <h3>Responsable Hébergements</h3>
+          <div class="job-meta">
+            <span>📍 Chréa, Blida</span>
+            <span>⏰ Temps plein</span>
+            <span>🗓️ Expérience : 3 ans min.</span>
+          </div>
+          <div class="job-tags">
+            <span class="job-tag">Management</span>
+            <span class="job-tag">Hôtellerie</span>
+          </div>
+        </div>
+        <div class="job-right">
+          <div class="job-salary">75 000 DZD<span>/ mois</span></div>
+          <button class="btn-postuler" onclick="openModal('Responsable Hébergements')">Postuler →</button>
+        </div>
+      </div>
+
+      <div class="job-card" data-cat="Marketing">
+        <div>
+          <div class="job-icon">📱</div>
+          <h3>Community Manager</h3>
+          <div class="job-meta">
+            <span>📍 Alger</span>
+            <span>⏰ Temps partiel</span>
+            <span>🗓️ Débutant accepté</span>
+          </div>
+          <div class="job-tags">
+            <span class="job-tag">Marketing</span>
+            <span class="job-tag">Réseaux sociaux</span>
+          </div>
+        </div>
+        <div class="job-right">
+          <div class="job-salary">40 000 DZD<span>/ mois</span></div>
+          <button class="btn-postuler" onclick="openModal('Community Manager')">Postuler →</button>
+        </div>
+      </div>
+
+      <div class="job-card" data-cat="Tech">
+        <div>
+          <div class="job-icon">🎨</div>
+          <h3>Designer UI/UX</h3>
+          <div class="job-meta">
+            <span>📍 Alger (Hybride)</span>
+            <span>⏰ Temps plein</span>
+            <span>🗓️ Expérience : 2 ans min.</span>
+          </div>
+          <div class="job-tags">
+            <span class="job-tag">Tech</span>
+            <span class="job-tag">Design</span>
+            <span class="job-tag">Figma</span>
+          </div>
+        </div>
+        <div class="job-right">
+          <div class="job-salary">85 000 DZD<span>/ mois</span></div>
+          <button class="btn-postuler" onclick="openModal('Designer UI/UX')">Postuler →</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CULTURE -->
+  <section class="culture">
+    <div class="culture-grid">
+      <div>
+        <div class="section-label">Pourquoi nous rejoindre</div>
+        <h2 class="section-title">Notre <em>culture</em><br>d'entreprise</h2>
+        <p style="font-size:15px;color:rgba(255,255,255,0.60);line-height:1.75;margin-top:16px;max-width:480px;">Chez
+          MountainDZ, on croit que les meilleures idées naissent quand les gens sont heureux, libres et passionnés.</p>
+      </div>
+      <div class="culture-cards">
+        <div class="culture-card">
+          <div class="culture-icon">🎿</div>
+          <h4>Avantages nature</h4>
+          <p>Accès gratuit à toutes nos activités et hébergements partenaires.</p>
+        </div>
+        <div class="culture-card">
+          <div class="culture-icon">📚</div>
+          <h4>Formation continue</h4>
+          <p>Budget formation annuel de 50 000 DZD par employé.</p>
+        </div>
+        <div class="culture-card">
+          <div class="culture-icon">🏠</div>
+          <h4>Flexibilité totale</h4>
+          <p>Remote, hybride ou sur site — tu choisis comment tu travailles.</p>
+        </div>
+        <div class="culture-card">
+          <div class="culture-icon">🚀</div>
+          <h4>Évolution rapide</h4>
+          <p>Startup en croissance : les opportunités d'avancement sont réelles.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Tu ne vois pas le poste<br>qui te correspond ?</h2>
+    <p>Envoie-nous ta candidature spontanée, on est toujours à la recherche de talents passionnés.</p>
+    <button class="btn-cta" onclick="openModal('Candidature spontanée')">📨 Candidature spontanée</button>
+  </div>
+
+  <!-- APPLY MODAL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <h3>Postuler</h3>
+      <div class="modal-job-title" id="modalJobTitle"></div>
+      <div class="modal-form">
+        <div class="modal-row">
+          <div class="form-group">
+            <label>Prénom *</label>
+            <input type="text" id="applyPrenom" placeholder="Amine" />
+          </div>
+          <div class="form-group">
+            <label>Nom *</label>
+            <input type="text" id="applyNom" placeholder="Boudiaf" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" id="applyEmail" placeholder="votre@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Téléphone</label>
+          <input type="tel" id="applyPhone" placeholder="+213 6XX XXX XXX" />
+        </div>
+        <div class="form-group">
+          <label>Message / Motivation *</label>
+          <textarea id="applyMessage" placeholder="Parlez-nous de votre parcours et motivation…"></textarea>
+        </div>
+        <button class="btn-submit" onclick="submitApplication()">📨 Envoyer ma candidature</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="logo" href="index.html">Mountain<span>DZ</span></a>
+        <p>L'authenticité algérienne à son sommet.<br>Hébergements, activités et expériences uniques.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="accueil.html">Accueil</a></li>
+          <li><a href="hebergement.html">Hébergements</a></li>
+          <li><a href="restaurant.html">Restaurants</a></li>
+          <li><a href="index.html">Activités</a></li>
+          <li><a href="boutique.html">Boutique</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="apropos.html">À propos</a></li>
+          <li><a href="nouvelles.html">Nouvelles</a></li>
+          <li><a href="emplois.html">Emplois</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 MountainDZ. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Sticky header ── */
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    /* ── Account dropdown ── */
+    function toggleAccountDropdown(e) {
+      e.stopPropagation();
+      const btn = document.querySelector('.btn-account');
+      const dropdown = document.getElementById('accountDropdown');
+      const isOpen = dropdown.classList.contains('open');
+      btn.classList.toggle('open', !isOpen);
+      dropdown.classList.toggle('open', !isOpen);
+    }
+    function closeAccountDropdown() {
+      document.querySelector('.btn-account').classList.remove('open');
+      document.getElementById('accountDropdown').classList.remove('open');
+    }
+    document.addEventListener('click', closeAccountDropdown);
+    document.getElementById('accountWrap').addEventListener('click', e => e.stopPropagation());
+
+    /* ── Toast helper ── */
+    function showToast(msg, isError = false) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.className = 'toast' + (isError ? ' error' : '');
+      void toast.offsetWidth;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4000);
+    }
+
+    /* ── Jobs filter ── */
+    document.getElementById('filterBar').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.cat;
+      document.querySelectorAll('#jobsGrid .job-card').forEach(card => {
+        const show = cat === 'all' || card.dataset.cat === cat;
+        card.style.display = show ? '' : 'none';
+      });
+    });
+
+    /* ── Application modal ── */
+    function openModal(jobTitle) {
+      document.getElementById('modalJobTitle').textContent = '📌 ' + jobTitle;
+      document.getElementById('modalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Clear form
+      ['applyPrenom', 'applyNom', 'applyEmail', 'applyPhone', 'applyMessage'].forEach(id => {
+        const el = document.getElementById(id);
+        el.value = '';
+        el.classList.remove('error');
+      });
+    }
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function closeModalOutside(e) {
+      if (e.target === document.getElementById('modalOverlay')) closeModal();
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    /* ── Email validation ── */
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    /* ── Submit application ── */
+    async function submitApplication() {
+      const fields = [
+        { id: 'applyPrenom', label: 'Prénom' },
+        { id: 'applyEmail', label: 'Email' },
+        { id: 'applyMessage', label: 'Message' },
+      ];
+      // Clear errors
+      document.querySelectorAll('.modal-form input, .modal-form textarea')
+        .forEach(el => el.classList.remove('error'));
+
+      let hasError = false;
+      fields.forEach(({ id }) => {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) { el.classList.add('error'); hasError = true; }
+      });
+
+      const emailEl = document.getElementById('applyEmail');
+      if (emailEl.value.trim() && !isValidEmail(emailEl.value.trim())) {
+        emailEl.classList.add('error');
+        showToast('⚠️ Adresse email invalide.', true);
+        return;
+      }
+      if (hasError) {
+        showToast('⚠️ Veuillez remplir tous les champs obligatoires.', true);
+        return;
+      }
+
+      const btn = document.querySelector('.btn-submit');
+      btn.disabled = true;
+      btn.textContent = '⏳ Envoi en cours…';
+
+      try {
+        const posteText = document.getElementById('modalJobTitle').textContent || '';
+        const poste = posteText.replace('📌', '').trim() || 'Candidature spontanée';
+
+        const payload = {
+          prenom: document.getElementById('applyPrenom').value.trim(),
+          nom: document.getElementById('applyNom').value.trim(),
+          email: document.getElementById('applyEmail').value.trim(),
+          telephone: document.getElementById('applyPhone').value.trim(),
+          poste,
+          message: document.getElementById('applyMessage').value.trim()
+        };
+
+        const res = await fetch('/api/candidatures', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          throw new Error(data.error || 'Impossible d\'envoyer la candidature.');
+        }
+
+        btn.disabled = false;
+        btn.textContent = '📨 Envoyer ma candidature';
+        closeModal();
+        showToast('✅ Candidature envoyée ! Réf: #' + (data.id || '—') + ' (réponse sous 72h).');
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = '📨 Envoyer ma candidature';
+        showToast('❌ ' + (err.message || 'Erreur serveur. Vérifiez que le backend est lancé.'), true);
+      }
+    }
+  </script>
+  <script src="api-connector.js"></script>
+</body>
+
+</html>

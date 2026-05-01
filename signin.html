@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion — MountainDZ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{--blue:#4f8ef7;--blue-dark:#2a6be0;--bg:#0b1120;--card:rgba(15,22,42,0.72);--border:rgba(255,255,255,0.10);--input-bg:rgba(255,255,255,0.05);--text:#f0f4ff;--muted:#7a8baa}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;color:var(--text);padding:20px;background:var(--bg);overflow:hidden}
+    .bg-scene{position:fixed;inset:0;z-index:0;overflow:hidden;background-color:var(--bg)}
+    .bg-scene img{width:100%;height:100%;object-fit:cover;opacity:0.25;filter:contrast(1.1) brightness(0.9);transform:scale(1.02);animation:slowZoom 30s linear infinite alternate}
+    @keyframes slowZoom{0%{transform:scale(1.02)}100%{transform:scale(1.1)}}
+    .bg-scene::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 10% 90%,rgba(42,107,224,0.12) 0%,transparent 60%),radial-gradient(circle at 90% 10%,rgba(79,142,247,0.12) 0%,transparent 60%),linear-gradient(180deg,rgba(11,17,32,0.4) 0%,rgba(11,17,32,0.95) 100%)}
+    .orb{position:fixed;border-radius:50%;filter:blur(120px);opacity:0.25;animation:drift 20s ease-in-out infinite alternate;pointer-events:none;z-index:0}
+    .orb-1{width:600px;height:600px;background:#2a6be0;top:-200px;left:-200px}
+    .orb-2{width:500px;height:500px;background:#4f8ef7;bottom:-150px;right:-150px;animation-duration:25s}
+    @keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(80px,40px) scale(1.1)}}
+    .card{position:relative;z-index:1;background:var(--card);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:28px;padding:44px 40px 40px;width:min(460px,100%);box-shadow:0 40px 80px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04) inset;animation:slideUp 0.5s cubic-bezier(0.16,1,0.3,1) both}
+    @keyframes slideUp{from{opacity:0;transform:translateY(32px) scale(0.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+    .close-btn{position:absolute;top:18px;right:18px;width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:rgba(255,255,255,0.06);color:var(--muted);cursor:pointer;display:grid;place-items:center;font-size:16px;transition:all 0.2s}
+    .close-btn:hover{background:rgba(255,255,255,0.12);color:var(--text)}
+    .logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:24px}
+    .logo-icon{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#2a6be0,#4f8ef7);display:grid;place-items:center;font-size:22px;box-shadow:0 8px 24px rgba(79,142,247,0.35)}
+    .logo-text{font-size:1.5rem;font-weight:800;letter-spacing:-0.03em}
+    .logo-text span{color:var(--blue)}
+    .progress-bar{height:2px;background:rgba(255,255,255,0.08);border-radius:2px;margin-bottom:28px;overflow:hidden}
+    .progress-fill{height:100%;background:linear-gradient(90deg,#2a6be0,#4f8ef7);border-radius:2px;transition:width 0.4s cubic-bezier(0.4,0,0.2,1)}
+    .panel{display:none;animation:fadeIn 0.35s ease both}
+    .panel.active{display:block}
+    @keyframes fadeIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
+    .section-lbl{font-size:0.68rem;font-weight:700;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px}
+    .welcome-big{font-size:1.5rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:6px}
+    .welcome-sub{font-size:0.84rem;color:var(--muted);margin-bottom:24px;line-height:1.5}
+    .fg{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+    .fg label{font-size:0.72rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em}
+    .input-wrap{position:relative;display:flex;align-items:center}
+    .input-wrap input{width:100%;padding:13px 42px 13px 14px;background:var(--input-bg);border:1.5px solid var(--border);border-radius:12px;color:var(--text);font-size:0.95rem;font-family:'Sora',sans-serif;outline:none;transition:all 0.25s}
+    .input-wrap input:hover{border-color:rgba(255,255,255,0.18)}
+    .input-wrap input:focus{border-color:var(--blue);background:rgba(79,142,247,0.06);box-shadow:0 0 0 3px rgba(79,142,247,0.12)}
+    .input-wrap input::placeholder{color:rgba(255,255,255,0.22)}
+    .input-icon{position:absolute;right:13px;color:var(--muted);cursor:pointer;transition:color 0.2s;display:flex}
+    .input-icon:hover{color:var(--text)}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .err{min-height:18px;font-size:0.80rem;color:#ff7070;margin-bottom:12px;display:flex;align-items:center;gap:5px;font-weight:500}
+    .divider{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:0.78rem;margin:20px 0}
+    .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+    .btn{width:100%;padding:14px;border:none;border-radius:12px;font-size:0.95rem;font-weight:600;cursor:pointer;font-family:'Sora',sans-serif;display:flex;align-items:center;justify-content:center;gap:9px;transition:all 0.25s;position:relative;overflow:hidden}
+    .btn-primary{background:linear-gradient(135deg,#2a6be0,#4f8ef7);color:#fff;box-shadow:0 6px 20px rgba(79,142,247,0.30);margin-bottom:12px}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(79,142,247,0.42)}
+    .btn-primary:disabled{opacity:0.55;cursor:not-allowed;transform:none;box-shadow:none}
+    .btn-social{background:rgba(255,255,255,0.05);border:1.5px solid var(--border);color:var(--text);margin-bottom:10px}
+    .btn-social:hover{background:rgba(255,255,255,0.09);border-color:rgba(255,255,255,0.20);transform:translateY(-1px)}
+    .btn-ghost{background:none;border:none;color:var(--muted);font-size:0.82rem;cursor:pointer;font-family:'Sora',sans-serif;padding:8px;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:5px;transition:color 0.2s;width:100%}
+    .btn-ghost:hover{color:var(--text)}
+    .back-btn{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:0.82rem;cursor:pointer;background:none;border:none;font-family:'Sora',sans-serif;padding:0;margin-bottom:20px;transition:color 0.2s}
+    .back-btn:hover{color:var(--text)}
+    .check-group{display:flex;gap:10px;align-items:flex-start;font-size:0.80rem;color:var(--muted);margin-bottom:18px;line-height:1.5}
+    .check-group input{margin-top:2px;accent-color:var(--blue);width:15px;height:15px}
+    .check-group a{color:var(--blue);text-decoration:none}
+    .forgot{display:block;text-align:right;font-size:0.78rem;color:var(--blue);text-decoration:none;margin-top:-8px;margin-bottom:18px}
+    .g-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity 0.3s}
+    .g-overlay.active{opacity:1;pointer-events:auto}
+    .g-card{background:#fff;color:#3c4043;border-radius:12px;width:380px;padding:32px 36px;box-shadow:0 16px 40px rgba(0,0,0,0.3);font-family:'Roboto','Segoe UI',sans-serif;transform:scale(0.95);transition:transform 0.3s}
+    .g-overlay.active .g-card{transform:scale(1)}
+    .g-logo{text-align:center;margin-bottom:10px}
+    .g-title{text-align:center;font-size:22px;font-weight:400;margin-bottom:6px}
+    .g-sub{text-align:center;font-size:13px;color:#5f6368;margin-bottom:28px}
+    .g-account{display:flex;align-items:center;gap:12px;padding:11px 8px;border-radius:8px;cursor:pointer;transition:background 0.15s}
+    .g-account:hover{background:#f1f3f4}
+    .g-avatar{width:38px;height:38px;border-radius:50%;background:#1a73e8;color:#fff;display:grid;place-items:center;font-size:15px;font-weight:600;flex-shrink:0}
+    .g-avatar.red{background:#d93025}
+    .g-name{font-size:14px;font-weight:500}
+    .g-email{font-size:12px;color:#5f6368}
+    .g-cancel{text-align:center;margin-top:20px;font-size:13px;color:#1a73e8;cursor:pointer;font-weight:500}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .spin{animation:spin 0.9s linear infinite;display:inline-block}
+  </style>
+</head>
+
+<body>
+
+  <div class="bg-scene">
+    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=2000&q=80&auto=format&fit=crop" alt="Mountain Night">
+  </div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <!-- Google Mock -->
+  <div class="g-overlay" id="googleOverlay">
+    <div class="g-card">
+      <div class="g-logo">
+        <svg width="44" height="44" viewBox="0 0 48 48">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+      </div>
+      <div class="g-title">Se connecter</div>
+      <div class="g-sub">Utiliser votre compte Google avec MountainDZ</div>
+      <div class="g-account" onclick="selectGoogleAccount('amine.boudiaf@gmail.com','Amine','Boudiaf')">
+        <div class="g-avatar">A</div>
+        <div><div class="g-name">Amine Boudiaf</div><div class="g-email">amine.boudiaf@gmail.com</div></div>
+      </div>
+      <div class="g-account" onclick="selectGoogleAccount('sarah.dz@gmail.com','Sarah','Mountain')">
+        <div class="g-avatar red">S</div>
+        <div><div class="g-name">Sarah Mountain</div><div class="g-email">sarah.dz@gmail.com</div></div>
+      </div>
+      <div class="g-cancel" onclick="closeGoogleMock()">Annuler (Simulation)</div>
+    </div>
+  </div>
+
+  <!-- Main Card -->
+  <div class="card">
+    <button class="close-btn" onclick="window.location.href='accueil.html'">✕</button>
+
+    <div class="logo">
+      <div class="logo-icon">⛰️</div>
+      <div class="logo-text">Mountain<span>DZ</span></div>
+    </div>
+
+    <!-- STEP 1 — Email -->
+    <div class="panel active" id="step1">
+      <div class="section-lbl">Étape 1 / 2</div>
+      <div class="welcome-big">Bienvenue ! 👋</div>
+      <div class="welcome-sub">Entrez votre e-mail pour vous connecter ou créer un compte.</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
+      <div class="fg">
+        <label>Adresse e-mail</label>
+        <div class="input-wrap">
+          <input type="email" id="s1Email" placeholder="ex: votre@email.com" autofocus />
+          <span class="input-icon">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+      <div class="err" id="s1Err"></div>
+      <button class="btn btn-primary" id="s1Btn" onclick="goStep2()">Continuer →</button>
+      <div class="divider">ou</div>
+      <button class="btn btn-social" onclick="doMockGoogleLogin()">
+        <svg width="18" height="18" viewBox="0 0 48 48">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+        Continuer avec Google
+      </button>
+      <button class="btn btn-social" style="margin-bottom:0;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+        </svg>
+        Continuer avec Apple
+      </button>
+    </div>
+
+    <!-- STEP 2 — Password / Register -->
+    <div class="panel" id="step2">
+      <button class="back-btn" onclick="goBack()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 5l-7 7 7 7"/>
+        </svg>
+        Retour
+      </button>
+      <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+
+      <!-- LOGIN sub-panel -->
+      <div id="subLogin">
+        <div class="section-lbl">Étape 2 / 2 — Connexion</div>
+        <div class="welcome-big">Content de vous revoir !</div>
+        <div class="welcome-sub" id="loginEmailDisplay" style="color:var(--blue);font-weight:600;font-size:0.88rem;margin-bottom:20px;"></div>
+        <div class="fg">
+          <label>Mot de passe</label>
+          <div class="input-wrap">
+            <input type="password" id="lgPwd" placeholder="••••••••" style="padding-right:42px;" />
+            <span class="input-icon" onclick="toggleVisibility('lgPwd')">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+        <a href="#" class="forgot">Mot de passe oublié ?</a>
+        <div class="err" id="lgErr"></div>
+        <button class="btn btn-primary" id="lgBtn" onclick="doLogin()">🔑 Se connecter</button>
+        <button class="btn-ghost" onclick="switchToRegister()">Pas encore de compte ? S'inscrire →</button>
+      </div>
+
+      <!-- REGISTER sub-panel -->
+      <div id="subRegister" style="display:none;">
+        <div class="section-lbl">Étape 2 / 2 — Inscription</div>
+        <div class="welcome-big">Créez votre compte</div>
+        <div class="welcome-sub">Rejoignez MountainDZ et réservez vos aventures !</div>
+        <div class="form-row">
+          <div class="fg">
+            <label>Prénom *</label>
+            <div class="input-wrap"><input type="text" id="rgPrenom" placeholder="Amine" /></div>
+          </div>
+          <div class="fg">
+            <label>Nom *</label>
+            <div class="input-wrap"><input type="text" id="rgNom" placeholder="Boudiaf" /></div>
+          </div>
+        </div>
+        <div class="fg">
+          <label>Téléphone (optionnel)</label>
+          <div class="input-wrap"><input type="tel" id="rgTel" placeholder="0XXX XXX XXX" /></div>
+        </div>
+        <div class="fg">
+          <label>Mot de passe *</label>
+          <div class="input-wrap">
+            <input type="password" id="rgPwd" placeholder="Minimum 8 caractères" style="padding-right:42px;" />
+            <span class="input-icon" onclick="toggleVisibility('rgPwd')">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+        <div class="fg">
+          <label>Confirmer *</label>
+          <div class="input-wrap">
+            <input type="password" id="rgPwdConfirm" placeholder="Répéter le mot de passe" style="padding-right:42px;" />
+            <span class="input-icon" onclick="toggleVisibility('rgPwdConfirm')">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+        <div class="check-group">
+          <input type="checkbox" id="rgTerms">
+          <label for="rgTerms" style="text-transform:none;font-weight:normal;letter-spacing:0;">
+            J'accepte les <a href="#">conditions d'utilisation</a> et la <a href="#">politique de confidentialité</a>
+          </label>
+        </div>
+        <div class="err" id="rgErr"></div>
+        <button class="btn btn-primary" id="rgBtn" onclick="doRegister()">✨ Créer mon compte</button>
+        <button class="btn-ghost" onclick="switchToLogin()">Déjà inscrit ? Se connecter →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API = 'http://localhost:3000/api';
+    const returnTo = new URLSearchParams(location.search).get('return') || 'accueil.html';
+    const errIcon = '⚠ ';
+    const spinHTML = '<span class="spin">⏳</span> ';
+
+    let _email = '';
+
+    // ─────────────────────────────────────────────────────
+    // FIX PRINCIPAL : redirect admin vers le bon chemin
+    // ─────────────────────────────────────────────────────
+    function redirect(user) {
+      if (user && user.role === 'admin') {
+        // Fonctionne que la page soit ouverte via file:// ou localhost
+        window.location.href = 'http://localhost:3000/dashboard';
+      } else {
+        window.location.href = returnTo;
+      }
+    }
+
+    /* ── Step navigation ── */
+    function goStep2() {
+      const email = document.getElementById('s1Email').value.trim();
+      const err = document.getElementById('s1Err');
+      err.textContent = '';
+      if (!email || !email.includes('@')) {
+        err.innerHTML = errIcon + 'Veuillez entrer une adresse e-mail valide.';
+        return;
+      }
+      _email = email;
+      document.getElementById('loginEmailDisplay').textContent = email;
+      document.getElementById('step1').classList.remove('active');
+      document.getElementById('step2').classList.add('active');
+      document.getElementById('lgPwd').focus();
+    }
+
+    function goBack() {
+      document.getElementById('step2').classList.remove('active');
+      document.getElementById('step1').classList.add('active');
+      document.getElementById('s1Err').textContent = '';
+    }
+
+    function switchToRegister() {
+      document.getElementById('subLogin').style.display = 'none';
+      document.getElementById('subRegister').style.display = '';
+      document.getElementById('rgPrenom').focus();
+    }
+
+    function switchToLogin() {
+      document.getElementById('subRegister').style.display = 'none';
+      document.getElementById('subLogin').style.display = '';
+      document.getElementById('lgPwd').focus();
+    }
+
+    function toggleVisibility(id) {
+      const input = document.getElementById(id);
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    /* ── LOGIN — VERSION CORRIGÉE ── */
+    async function doLogin() {
+      const pwd = document.getElementById('lgPwd').value;
+      const err = document.getElementById('lgErr');
+      const btn = document.getElementById('lgBtn');
+      err.textContent = '';
+
+      if (!pwd) {
+        err.innerHTML = errIcon + 'Veuillez entrer votre mot de passe.';
+        return;
+      }
+
+      btn.disabled = true;
+      const orig = btn.innerHTML;
+      btn.innerHTML = spinHTML + 'Connexion…';
+
+      try {
+        const res = await fetch(`${API}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: _email, password: pwd })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          // ✅ FIX : remettre le bouton avant le return
+          btn.disabled = false;
+          btn.innerHTML = orig;
+          err.innerHTML = errIcon + (data.error || 'Email ou mot de passe incorrect.');
+          return;
+        }
+
+        // ✅ Connexion réussie — sauvegarder et rediriger
+        localStorage.setItem('mdz_token', data.token);
+        localStorage.setItem('mdz_user_cache', JSON.stringify(data.user));
+        redirect(data.user);
+
+      } catch (e) {
+        // ✅ Fallback offline (serveur non joignable)
+        btn.disabled = false;
+        btn.innerHTML = orig;
+
+        const accounts = JSON.parse(localStorage.getItem('mdz_accounts') || '[]');
+        const user = accounts.find(a => a.email === _email && a.pwd === pwd);
+
+        if (!user) {
+          err.innerHTML = errIcon + 'Email ou mot de passe incorrect. (Serveur hors ligne)';
+          return;
+        }
+
+        const userData = { email: user.email, prenom: user.prenom, nom: user.nom, role: user.role || 'client' };
+        localStorage.setItem('mdz_token', 'offline_token');
+        localStorage.setItem('mdz_user_cache', JSON.stringify(userData));
+        redirect(userData);
+      }
+    }
+
+    /* ── REGISTER — VERSION CORRIGÉE ── */
+    async function doRegister() {
+      const prenom = document.getElementById('rgPrenom').value.trim();
+      const nom = document.getElementById('rgNom').value.trim();
+      const tel = document.getElementById('rgTel').value.trim();
+      const pwd = document.getElementById('rgPwd').value;
+      const pwdConfirm = document.getElementById('rgPwdConfirm').value;
+      const terms = document.getElementById('rgTerms').checked;
+      const err = document.getElementById('rgErr');
+      const btn = document.getElementById('rgBtn');
+      err.textContent = '';
+
+      if (!prenom || !nom || !pwd || !pwdConfirm) { err.innerHTML = errIcon + 'Veuillez remplir les champs obligatoires.'; return; }
+      if (pwd.length < 8) { err.innerHTML = errIcon + 'Mot de passe : 8 caractères minimum.'; return; }
+      if (pwd !== pwdConfirm) { err.innerHTML = errIcon + 'Les mots de passe ne correspondent pas.'; return; }
+      if (!terms) { err.innerHTML = errIcon + "Acceptez les conditions d'utilisation."; return; }
+
+      btn.disabled = true;
+      const orig = btn.innerHTML;
+      btn.innerHTML = spinHTML + 'Création…';
+
+      try {
+        const res = await fetch(`${API}/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prenom, nom, email: _email, password: pwd, telephone: tel })
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          btn.disabled = false;
+          btn.innerHTML = orig;
+          err.innerHTML = errIcon + (data.error || 'Erreur lors de l\'inscription.');
+          return;
+        }
+
+        localStorage.setItem('mdz_token', data.token);
+        localStorage.setItem('mdz_user_cache', JSON.stringify(data.user));
+        redirect(data.user);
+
+      } catch {
+        btn.disabled = false;
+        btn.innerHTML = orig;
+
+        const accounts = JSON.parse(localStorage.getItem('mdz_accounts') || '[]');
+        if (accounts.find(a => a.email === _email)) {
+          err.innerHTML = errIcon + 'Email déjà utilisé.';
+          return;
+        }
+        const userData = { email: _email, prenom, nom, role: 'client' };
+        accounts.push({ ...userData, pwd });
+        localStorage.setItem('mdz_accounts', JSON.stringify(accounts));
+        localStorage.setItem('mdz_token', 'offline_token');
+        localStorage.setItem('mdz_user_cache', JSON.stringify(userData));
+        redirect(userData);
+      }
+    }
+
+    /* ── Google mock ── */
+    function doMockGoogleLogin() {
+      document.getElementById('googleOverlay').classList.add('active');
+    }
+    function closeGoogleMock() {
+      document.getElementById('googleOverlay').classList.remove('active');
+    }
+    async function selectGoogleAccount(email, prenom, nom) {
+      closeGoogleMock();
+      try {
+        const res = await fetch(`${API}/auth/google/mock`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, prenom, nom })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        localStorage.setItem('mdz_token', data.token);
+        localStorage.setItem('mdz_user_cache', JSON.stringify(data.user));
+        redirect(data.user);
+      } catch {
+        const userData = { email, prenom, nom, role: 'client' };
+        localStorage.setItem('mdz_token', 'offline_token_google');
+        localStorage.setItem('mdz_user_cache', JSON.stringify(userData));
+        redirect(userData);
+      }
+    }
+
+    /* ── Enter key ── */
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Enter') return;
+      if (document.getElementById('step1').classList.contains('active')) goStep2();
+      else if (document.getElementById('subLogin').style.display !== 'none') doLogin();
+      else doRegister();
+    });
+  </script>
+</body>
+</html>
