@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fresh = confirmBtn.cloneNode(true);
     confirmBtn.parentNode.replaceChild(fresh, confirmBtn);
 
-    fresh.addEventListener('click', () => {
+    fresh.addEventListener('click', async () => {
       if (!requireAuth('confirmer cette réservation')) return;
 
       const modalOverlay = document.getElementById('modalOverlay');
@@ -380,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const pax   = modalOverlay.querySelector('input[type="number"]')?.value || 2;
       const resto = document.getElementById('modalTitle')?.textContent || 'Restaurant';
 
-      MDZ.addReservation({
+      await MDZ.addReservation({
         titre         : resto,
         icon          : '🍽️',
         dateReservation: date + (time ? ' à ' + time : ''),

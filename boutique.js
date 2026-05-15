@@ -1361,7 +1361,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── Patch submitReservation (boutique) → saves ── */
   const _origSubmitRes = window.submitReservation;
-  window.submitReservation = function() {
+  window.submitReservation = async function() {
     if (!requireAuth('confirmer cette réservation')) return;
     const name = document.getElementById('resName')?.value.trim();
     const tel  = document.getElementById('resTel')?.value.trim();
@@ -1371,7 +1371,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     if (resCurrentItem) {
-      MDZ.addReservation({
+      await MDZ.addReservation({
         titre         : resCurrentItem.name,
         icon          : '🛒',
         dateReservation: date,
@@ -1389,7 +1389,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── Patch submitEcoleReservation → saves ── */
   const _origEcoleSubmit = window.submitEcoleReservation;
-  window.submitEcoleReservation = function() {
+  window.submitEcoleReservation = async function() {
     if (!requireAuth('confirmer cette réservation')) return;
     const name = document.getElementById('ecoleResName')?.value.trim();
     const tel  = document.getElementById('ecoleResTel')?.value.trim();
@@ -1399,7 +1399,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     if (currentEcoleItem) {
-      MDZ.addReservation({
+      await MDZ.addReservation({
         titre         : currentEcoleItem.nom,
         icon          : currentEcoleItem.icon || '🎓',
         dateReservation: date,
@@ -1463,10 +1463,10 @@ function _addFavButtons() {
       width:32px;height:32px;display:grid;place-items:center;
       cursor:pointer;font-size:1rem;z-index:3;
       transition:transform .2s,background .2s;`;
-    btn.onclick = function(e) {
+    btn.onclick = async function(e) {
       e.stopPropagation();
       if (!requireAuth('ajouter aux favoris')) return;
-      const added = MDZ.toggleFavourite({
+      const added = await MDZ.toggleFavourite({
         id: pid, type: 'article',
         nom: prod.name, img: prod.img
       });

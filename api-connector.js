@@ -12,7 +12,8 @@
 
 'use strict';
 
-const API_URL = 'https://mountaindz-production.up.railway.app/api';
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+const API_URL = isLocal ? 'http://localhost:3000/api' : 'https://mountaindz-production.up.railway.app/api';
 
 
 // ══════════════════════════════════════════════════════════
@@ -98,6 +99,7 @@ const MDZ = {
           details    : r
         }
       });
+      if (!res.ok) throw new Error('API Error');
       const data = await res.json();
       // Also save locally for offline display
       _localAddReservation({ ...r, id: 'RES-' + data.id, date: new Date().toISOString() });
@@ -113,6 +115,7 @@ const MDZ = {
   async getReservations() {
     try {
       const res  = await MDZ.fetch('/reservations');
+      if (!res.ok) throw new Error('API Error');
       const data = await res.json();
       // Format to match dashboard modal format
       return data.map(r => ({
@@ -144,6 +147,7 @@ const MDZ = {
           adresse_livraison: ''
         }
       });
+      if (!res.ok) throw new Error('API Error');
       const data = await res.json();
       const order = { ...o, id: 'CMD-' + data.id, date: new Date().toISOString() };
       _localAddOrder(order);
@@ -159,6 +163,7 @@ const MDZ = {
   async getOrders() {
     try {
       const res  = await MDZ.fetch('/commandes');
+      if (!res.ok) throw new Error('API Error');
       const data = await res.json();
       return data.map(c => ({
         id              : 'CMD-' + c.id,
@@ -181,6 +186,7 @@ const MDZ = {
         method: 'POST',
         body  : { item_id: item.id, item_type: item.type, nom: item.nom, img: item.img }
       });
+      if (!res.ok) throw new Error('API Error');
       const data = await res.json();
       return data.added;
     } catch {
@@ -191,6 +197,7 @@ const MDZ = {
   async getFavourites() {
     try {
       const res  = await MDZ.fetch('/favoris');
+      if (!res.ok) throw new Error('API Error');
       return await res.json();
     } catch {
       return _localGetFavourites();

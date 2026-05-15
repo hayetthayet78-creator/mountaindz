@@ -759,7 +759,7 @@ function processPayment() {
     document.head.appendChild(s);
   }
 
-  setTimeout(() => {
+  setTimeout(async () => {
     // Save order
     let orderId = 'CMD-' + Date.now();
     if (typeof MDZ !== 'undefined') {
@@ -778,7 +778,7 @@ function processPayment() {
       }));
 
       const methodLabels = { visa:'Carte Visa', dahbiya:'Carte Dahbiya (CIB)', ccp:'Virement CCP' };
-      const order = MDZ.addOrder({
+      const order = await MDZ.addOrder({
         utilisateur    : user ? user.email : 'invité',
         articles,
         total          : _payTotal.toLocaleString('fr-DZ') + ' DA',
