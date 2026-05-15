@@ -330,7 +330,7 @@
     }
 
     .btn-reserve {
-      background:  #2ea84f;
+      background: #2ea84f;
       color: #fff;
       border: none;
       padding: 9px 22px;
@@ -1159,30 +1159,96 @@
 
     /* ── RESPONSIVE MOBILE ── */
     @media (max-width: 1024px) {
-      .culture-grid { grid-template-columns: 1fr; gap: 40px; }
-      .footer-inner, .footer-top { grid-template-columns: 1fr 1fr; }
+      .culture-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .footer-inner,
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
     }
+
     @media (max-width: 900px) {
-      .header-inner { padding: 0 20px; }
-      section, .site-footer, .jobs-section, .culture { padding-left: 20px; padding-right: 20px; }
-      .hero-content { padding: 0 20px; }
-      .stats-banner { padding-left: 20px; padding-right: 20px; flex-wrap: wrap; }
+      .header-inner {
+        padding: 0 20px;
+      }
+
+      section,
+      .site-footer,
+      .jobs-section,
+      .culture {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .hero-content {
+        padding: 0 20px;
+      }
+
+      .stats-banner {
+        padding-left: 20px;
+        padding-right: 20px;
+        flex-wrap: wrap;
+      }
     }
+
     @media (max-width: 768px) {
-      .culture-cards, .footer-inner, .footer-top { grid-template-columns: 1fr; }
-      .job-card { grid-template-columns: 1fr; text-align: center; }
-      .job-right { align-items: center; }
-      .nav-main { gap: 15px; }
-      .nav-main a { font-size: 0.82rem; }
-      .btn-account span { display: none; }
-      .hero h1 { font-size: clamp(32px, 8vw, 42px); }
+
+      .culture-cards,
+      .footer-inner,
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+
+      .job-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .job-right {
+        align-items: center;
+      }
+
+      .nav-main {
+        gap: 15px;
+      }
+
+      .nav-main a {
+        font-size: 0.82rem;
+      }
+
+      .btn-account span {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: clamp(32px, 8vw, 42px);
+      }
     }
+
     @media (max-width: 480px) {
-      .nav-main { gap: 8px; }
-      .nav-main a { font-size: 0.72rem; }
-      .header-inner { padding: 0 10px; }
-      .btn-reserve { padding: 7px 12px; font-size: 0.8rem; }
-      .nav-right { gap: 5px; }
+      .nav-main {
+        gap: 8px;
+      }
+
+      .nav-main a {
+        font-size: 0.72rem;
+      }
+
+      .header-inner {
+        padding: 0 10px;
+      }
+
+      .btn-reserve {
+        padding: 7px 12px;
+        font-size: 0.8rem;
+      }
+
+      .nav-right {
+        gap: 5px;
+      }
     }
   </style>
 </head>
