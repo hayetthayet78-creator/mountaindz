@@ -1,7 +1,4 @@
-/* ============================================
-   MountainDZ — Restaurant & Café Page CSS
-   FIXED: HD hero background, header scroll
-   ============================================ */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
 
@@ -75,7 +72,7 @@ body {
 }
 
 /* ══════════════════════════════════════
-   HEADER — matches activity page exactly
+   HEADER — 
 ══════════════════════════════════════ */
 .site-header {
   position: fixed;
@@ -381,7 +378,7 @@ body {
 }
 
 /* ══════════════════════════════════════
-   HERO — HD background, crisp & vivid
+   HERO — HD background
 ══════════════════════════════════════ */
 .restau-hero {
   position: relative;
@@ -396,7 +393,7 @@ body {
 .restau-hero-bg {
   position: absolute;
   inset: 0;
-  /* HD restaurant/mountain hero — high-res, food-meets-mountain atmosphere */
+
   background-image: url('images/restaurant.jpg');
   background-size: cover;
   background-position: center 40%;

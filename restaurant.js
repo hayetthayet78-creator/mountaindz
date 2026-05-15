@@ -1,11 +1,7 @@
-/* ============================================
-   MountainDZ — Restaurant & Café Page JS
-   FIXED: header scroll, hamburger crash, dropdown
-   ============================================ */
 
 'use strict';
 
-// ===== NAVBAR SCROLL — uses site-header (matches other pages) =====
+
 const siteHeader = document.getElementById('site-header');
 window.addEventListener('scroll', () => {
   if (siteHeader) siteHeader.classList.toggle('scrolled', window.scrollY > 60);
@@ -320,14 +316,7 @@ document.addEventListener('click', (e) => {
     closeAccountDropdown();
   }
 });
-/* ══════════════════════════════════════════════════════════════
-   RESTAURANT_LOGIC.JS
-   Add AFTER restaurant.js: <script src="restaurant_logic.js"></script>
-   Adds:
-   ✅ Auth guard on table reservation
-   ✅ Saves reservation to MDZ.addReservation()
-   ✅ Real weather badge shown when station selected
-══════════════════════════════════════════════════════════════ */
+
 
 'use strict';
 

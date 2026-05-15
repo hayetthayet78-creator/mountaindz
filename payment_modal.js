@@ -1,18 +1,3 @@
-/* ══════════════════════════════════════════════════════════════
-   PAYMENT_MODAL.JS — MountainDZ
-   Add AFTER boutique_logic.js:
-   <script src="payment_modal.js"></script>
-
-   Features:
-   ✅ Beautiful payment modal (Visa / CIB Dahbiya / CCP)
-   ✅ Real card type detection (Visa, Mastercard, CIB)
-   ✅ Luhn algorithm validation
-   ✅ Expiry & CVV validation
-   ✅ Card flip animation on CVV focus
-   ✅ Animated card preview (live update)
-   ✅ Saves order to MDZ after payment
-   ✅ Success animation → opens Mes Commandes
-══════════════════════════════════════════════════════════════ */
 
 'use strict';
 
