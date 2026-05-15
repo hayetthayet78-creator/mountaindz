@@ -1820,8 +1820,7 @@
 
         const res = await MDZ.fetch('/messages', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: payload
         });
 
         const data = await res.json().catch(() => ({}));
