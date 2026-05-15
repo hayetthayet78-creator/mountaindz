@@ -426,4 +426,58 @@ nav a.active {
         font-size: 0.9rem;
     }
 }
-
+
+/* ══ Footer desktop fix — match accueil ══ */
+@media (min-width: 901px) {
+  .footer-inner {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+}
+
+/* ══ Footer mobile responsive ══ */
+@media (max-width: 900px) {
+  .footer {
+    padding: 40px 24px 24px;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+
+  .footer-brand {
+    text-align: left;
+  }
+
+  .footer-brand p {
+    max-width: 100%;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.50);
+    margin-top: 10px;
+    line-height: 1.7;
+  }
+
+  .footer-links h4 {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+
+  .footer-links a {
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.70);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .footer-bottom {
+    padding-top: 20px;
+    font-size: 0.80rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.35);
+  }
+}

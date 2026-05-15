@@ -509,29 +509,157 @@ html { scroll-behavior: smooth; }
 .stat-num { font-family:var(--font-display); font-size:2.6rem; font-weight:800; color:#2ea84f; line-height:1; margin-bottom:8px; }
 .stat-label { font-size:0.85rem; color:rgba(255,255,255,0.55); line-height:1.4; }
 .stat-card:first-child { grid-column:1/-1; background:rgba(46,168,79,0.12); border-color:rgba(46,168,79,0.25); }
-
 /* ══════════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════════ */
-@media (max-width:900px) {
-  .heb-hero-content { padding:0 28px 90px; }
-  .heb-section { padding:0 20px 60px; }
-  .heb-search-card { flex-direction:column; align-items:stretch; }
-  .heb-search-divider { width:100%; height:1px; }
-  .heb-search-field { padding:10px 0; }
-  .heb-search-btn { margin-left:0; margin-top:8px; width:100%; justify-content:center; border-radius:14px; }
-  .why-section { grid-template-columns:1fr; padding:60px 24px; gap:48px; }
-}
-@media (max-width:600px) {
-  .heb-cards-grid { grid-template-columns:1fr; gap:16px; }
-  .heb-amenities-grid { grid-template-columns:1fr; }
-  .header-inner { padding:0 16px; }
+
+.menu-toggle {
+  display: none;
 }
 
-@media (max-width:480px) {
-  .header-inner { padding: 0 12px; }
-  .nav-main { gap: 12px; }
-  .nav-main a { font-size: 0.74rem; }
-  .btn-account { padding: 6px 8px; font-size: 0.8rem; }
-  .btn-reserve { display: none; }
+@media (max-width: 900px) {
+  .heb-hero-content {
+    padding: 0 28px 90px;
+  }
+
+  .heb-section {
+    padding: 0 20px 60px;
+  }
+
+  .heb-search-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .heb-search-divider {
+    width: 100%;
+    height: 1px;
+  }
+
+  .heb-search-field {
+    padding: 10px 0;
+  }
+
+  .heb-search-btn {
+    margin-left: 0;
+    margin-top: 8px;
+    width: 100%;
+    justify-content: center;
+    border-radius: 14px;
+  }
+
+  .why-section {
+    grid-template-columns: 1fr;
+    padding: 60px 24px;
+    gap: 48px;
+  }
+
+  .header-inner {
+    padding: 0 12px;
+    gap: 12px;
+  }
+
+  .menu-toggle {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.10);
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-main {
+    position: fixed;
+    top: var(--nav-h);
+    left: 12px;
+    right: 12px;
+    transform: none;
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px;
+    background: rgba(8, 18, 36, 0.96);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    backdrop-filter: blur(20px);
+    z-index: 999;
+  }
+
+  .nav-main.open {
+    display: flex;
+  }
+
+  .nav-main a {
+    width: 100%;
+    padding: 13px 12px;
+    font-size: 0.92rem;
+    border-radius: 10px;
+  }
+
+  .nav-main a:hover {
+    background: rgba(255,255,255,0.08);
+  }
+
+  .btn-reserve-nav {
+    display: none;
+  }
+
+  .logo {
+    font-size: 1rem;
+  }
+
+  .btn-account {
+    padding: 6px 8px;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .heb-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .heb-amenities-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 480px) {
+  .header-inner {
+    padding: 0 10px;
+  }
+
+  .btn-account {
+    font-size: 0.78rem;
+    padding: 6px 8px;
+    gap: 6px;
+  }
+
+  .btn-account svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .nav-right {
+    gap: 6px;
+  }
+
+  .logo {
+    font-size: 1rem;
+  }
+
+  .menu-toggle {
+    width: 38px;
+    height: 38px;
+  }
+
+  .account-dropdown {
+    width: 260px;
+    right: -10px;
+  }
 }

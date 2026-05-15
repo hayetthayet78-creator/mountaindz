@@ -54,12 +54,21 @@
     #app{display:none;height:100vh;flex-direction:row;}
     #app.visible{display:flex;}
 
+    /* ── MOBILE OVERLAY ── */
+    .sidebar-overlay{
+      display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);
+      z-index:199;backdrop-filter:blur(2px);
+    }
+    .sidebar-overlay.open{display:block;}
+
     /* ── SIDEBAR ── */
     .sidebar{
       width:var(--sidebar-w);flex-shrink:0;
       background:linear-gradient(180deg,#0d1f3c 0%,#091630 100%);
       border-right:1px solid var(--border);
       display:flex;flex-direction:column;height:100vh;overflow-y:auto;
+      transition:transform .3s ease;
+      z-index:200;
     }
     .sidebar-brand{
       padding:22px 20px 18px;
@@ -120,6 +129,13 @@
       background:rgba(255,255,255,.08);border:1px solid var(--border);
       border-radius:8px;padding:6px 12px;font-size:.80rem;color:rgba(255,255,255,.65);
     }
+    /* hamburger button */
+    .btn-hamburger{
+      display:none;background:rgba(255,255,255,.08);border:1px solid var(--border);
+      border-radius:8px;padding:8px 10px;cursor:pointer;color:#fff;font-size:1.1rem;
+      line-height:1;flex-shrink:0;transition:background .2s;
+    }
+    .btn-hamburger:hover{background:rgba(255,255,255,.15);}
     .content{flex:1;overflow-y:auto;padding:28px;scrollbar-width:thin;}
     .content::-webkit-scrollbar{width:4px;}
     .content::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:4px;}
@@ -144,14 +160,16 @@
     .stat-card.red   .stat-val{color:#e74c3c;}
 
     /* ── SECTION TITLE ── */
-    .sect-title{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+    .sect-title{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
     .sect-title span{font-size:.78rem;color:var(--muted);font-weight:400;}
 
     /* ── TABLE ── */
     .tbl-wrap{background:var(--glass);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:28px;}
-    .tbl-head{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+    .tbl-head{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
     .tbl-head-title{font-size:.88rem;font-weight:700;color:#fff;}
-    table{width:100%;border-collapse:collapse;}
+    /* scrollable table wrapper for mobile */
+    .tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    table{width:100%;border-collapse:collapse;min-width:520px;}
     th{padding:10px 16px;text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);white-space:nowrap;}
     td{padding:11px 16px;font-size:.82rem;color:var(--text);border-bottom:1px solid rgba(255,255,255,.06);vertical-align:middle;}
     tr:last-child td{border-bottom:none;}
@@ -184,15 +202,111 @@
     /* ── MESSAGES ── */
     .msg-card{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:12px;transition:border-color .2s;}
     .msg-card.unread{border-color:rgba(245,200,66,.30);background:rgba(245,200,66,.06);}
-    .msg-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
-    .msg-from{font-size:.88rem;font-weight:700;color:#fff;}
-    .msg-date{font-size:.72rem;color:var(--muted);}
+    .msg-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;gap:8px;flex-wrap:wrap;}
+    .msg-from{font-size:.88rem;font-weight:700;color:#fff;word-break:break-all;}
+    .msg-date{font-size:.72rem;color:var(--muted);flex-shrink:0;}
     .msg-subject{font-size:.78rem;color:#3b8bfa;font-weight:600;margin-bottom:6px;}
     .msg-body{font-size:.82rem;color:var(--text);line-height:1.55;}
     .btn-mark-read{margin-top:8px;padding:5px 12px;border:1px solid rgba(255,255,255,.16);border-radius:8px;background:transparent;color:rgba(255,255,255,.60);font-size:.72rem;cursor:pointer;transition:all .2s;}
     .btn-mark-read:hover{background:rgba(255,255,255,.08);color:#fff;}
     .btn-refresh{padding:7px 14px;border:1px solid var(--border);border-radius:8px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.65);font-size:.78rem;cursor:pointer;transition:all .2s;}
     .btn-refresh:hover{background:rgba(255,255,255,.12);color:#fff;}
+
+    /* ══════════════════════════════════
+       RESPONSIVE — TABLET ≤ 900px
+    ══════════════════════════════════ */
+    @media (max-width: 900px) {
+      .stats-grid{
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .badge-notif{
+        display:none;
+      }
+    }
+
+    /* ══════════════════════════════════
+       RESPONSIVE — MOBILE ≤ 700px
+    ══════════════════════════════════ */
+    @media (max-width: 700px) {
+      /* Body: allow vertical scroll when sidebar is closed */
+      html,body{overflow:hidden;}
+
+      /* Show hamburger */
+      .btn-hamburger{display:flex;align-items:center;justify-content:center;}
+
+      /* Sidebar becomes a drawer */
+      .sidebar{
+        position:fixed;top:0;left:0;height:100vh;
+        transform:translateX(-100%);
+        box-shadow:4px 0 32px rgba(0,0,0,.6);
+      }
+      .sidebar.open{
+        transform:translateX(0);
+      }
+
+      /* App: no left sidebar space */
+      #app{flex-direction:column;}
+
+      /* Topbar */
+      .topbar{
+        padding:0 14px;gap:10px;height:56px;
+      }
+      .topbar h1{font-size:.88rem;}
+      .btn-refresh{
+        padding:6px 10px;font-size:.74rem;
+      }
+
+      /* Content */
+      .content{padding:16px 14px;}
+
+      /* Stats: 2 cols on small, 1 on very small */
+      .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:10px;
+        margin-bottom:20px;
+      }
+      .stat-card{padding:14px 14px;}
+      .stat-val{font-size:1.55rem;}
+      .stat-label{font-size:.65rem;margin-bottom:6px;}
+      .stat-sub{font-size:.70rem;}
+
+      /* Section titles */
+      .sect-title{font-size:.85rem;margin-bottom:12px;}
+
+      /* Table: horizontal scroll */
+      .tbl-wrap{border-radius:12px;}
+      .tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+      table{min-width:480px;}
+      th{padding:8px 12px;font-size:.64rem;}
+      td{padding:9px 12px;font-size:.78rem;}
+
+      /* Messages */
+      .msg-card{padding:13px 14px;}
+      .msg-from{font-size:.82rem;}
+
+      /* Login box */
+      .login-box{
+        width:calc(100vw - 32px);
+        padding:32px 22px;
+        border-radius:18px;
+      }
+    }
+
+    /* ══════════════════════════════════
+       RESPONSIVE — VERY SMALL ≤ 400px
+    ══════════════════════════════════ */
+    @media (max-width: 400px) {
+      .stats-grid{
+        grid-template-columns:1fr;
+      }
+      .stat-card{
+        display:flex;align-items:center;gap:14px;padding:12px 14px;
+      }
+      .stat-card .stat-val{font-size:1.6rem;margin-bottom:0;}
+      .stat-label{margin-bottom:2px;}
+      .topbar h1{font-size:.80rem;}
+      .btn-refresh span{display:none;}
+    }
   </style>
 </head>
 <body>
@@ -217,7 +331,11 @@
 
 <!-- ══ APP ══ -->
 <div id="app">
-  <aside class="sidebar">
+
+  <!-- Mobile sidebar overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">Mountain<span>DZ</span><small>Admin Dashboard</small></div>
     <nav class="sidebar-nav">
       <div class="nav-section-title">Principal</div>
@@ -245,6 +363,8 @@
 
   <main class="main">
     <div class="topbar">
+      <!-- Hamburger — visible only on mobile -->
+      <button class="btn-hamburger" id="btnHamburger" onclick="toggleSidebar()" aria-label="Menu">☰</button>
       <h1 id="topbarTitle">Vue d'ensemble</h1>
       <div class="topbar-right">
         <div class="badge-notif" id="topbarDate"></div>
@@ -264,21 +384,21 @@
       <div class="panel" id="panel-users">
         <div class="tbl-wrap">
           <div class="tbl-head"><div class="tbl-head-title">👥 Utilisateurs inscrits</div></div>
-          <div id="usersTableBody"><div class="loading">Chargement…</div></div>
+          <div class="tbl-scroll" id="usersTableBody"><div class="loading">Chargement…</div></div>
         </div>
       </div>
 
       <div class="panel" id="panel-reservations">
         <div class="tbl-wrap">
           <div class="tbl-head"><div class="tbl-head-title">📅 Toutes les réservations</div></div>
-          <div id="reservationsTableBody"><div class="loading">Chargement…</div></div>
+          <div class="tbl-scroll" id="reservationsTableBody"><div class="loading">Chargement…</div></div>
         </div>
       </div>
 
       <div class="panel" id="panel-commandes">
         <div class="tbl-wrap">
           <div class="tbl-head"><div class="tbl-head-title">🛒 Toutes les commandes</div></div>
-          <div id="commandesTableBody"><div class="loading">Chargement…</div></div>
+          <div class="tbl-scroll" id="commandesTableBody"><div class="loading">Chargement…</div></div>
         </div>
       </div>
 
@@ -290,7 +410,7 @@
       <div class="panel" id="panel-candidatures">
         <div class="tbl-wrap">
           <div class="tbl-head"><div class="tbl-head-title">💼 Candidatures emploi</div></div>
-          <div id="candidaturesTableBody"><div class="loading">Chargement…</div></div>
+          <div class="tbl-scroll" id="candidaturesTableBody"><div class="loading">Chargement…</div></div>
         </div>
       </div>
 
@@ -307,14 +427,26 @@ const API = (
     : `${window.location.origin}/api`
 );
 
-// ── TOKEN: check both keys (signin.html saves as mdz_token, dashboard saves as mdz_admin_token)
 let TOKEN = localStorage.getItem('mdz_admin_token') || localStorage.getItem('mdz_token');
 let currentPanel = 'overview';
 
 document.getElementById('topbarDate').textContent = new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
 
-// Auto-login if token exists
 if (TOKEN) { initApp(); }
+
+// ══ SIDEBAR MOBILE ══
+function toggleSidebar() {
+  const sb  = document.getElementById('sidebar');
+  const ov  = document.getElementById('sidebarOverlay');
+  const open = sb.classList.toggle('open');
+  ov.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
 
 // ══ LOGIN ══
 async function doLogin() {
@@ -341,6 +473,7 @@ async function doLogin() {
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && document.getElementById('loginScreen').style.display !== 'none') doLogin();
+  if (e.key === 'Escape') closeSidebar();
 });
 
 function logout() {
@@ -408,6 +541,8 @@ function showPanel(name) {
   currentPanel = name;
   const loaders = { overview:loadOverview, users:loadUsers, reservations:loadReservations, commandes:loadCommandes, messages:loadMessages, candidatures:loadCandidatures };
   loaders[name]?.();
+  // Auto-close sidebar on mobile after nav
+  closeSidebar();
 }
 
 function refreshCurrent() { showPanel(currentPanel); }
@@ -436,7 +571,7 @@ async function loadOverview() {
 
     const last5res = allRes.slice(0,5);
     document.getElementById('overviewResTable').innerHTML = last5res.length ? `
-      <table><thead><tr><th>ID</th><th>Client</th><th>Type</th><th>Titre</th><th>Date</th><th>Statut</th></tr></thead>
+      <div class="tbl-scroll"><table><thead><tr><th>ID</th><th>Client</th><th>Type</th><th>Titre</th><th>Date</th><th>Statut</th></tr></thead>
       <tbody>${last5res.map(r=>`<tr>
         <td style="color:var(--muted)">#${r.id}</td>
         <td>${r.client_nom||'—'}</td>
@@ -444,12 +579,12 @@ async function loadOverview() {
         <td>${r.titre}</td>
         <td style="color:var(--muted)">${fmtDate(r.created_at)}</td>
         <td><span class="badge ${r.statut}">${r.statut}</span></td>
-      </tr>`).join('')}</tbody></table>`
+      </tr>`).join('')}</tbody></table></div>`
     : `<div class="empty"><div class="ei">📅</div>Aucune réservation</div>`;
 
     const last5cmd = allCmd.slice(0,5);
     document.getElementById('overviewCmdTable').innerHTML = last5cmd.length ? `
-      <table><thead><tr><th>ID</th><th>Client</th><th>Articles</th><th>Total</th><th>Paiement</th><th>Statut</th></tr></thead>
+      <div class="tbl-scroll"><table><thead><tr><th>ID</th><th>Client</th><th>Articles</th><th>Total</th><th>Paiement</th><th>Statut</th></tr></thead>
       <tbody>${last5cmd.map(c=>`<tr>
         <td style="color:var(--muted)">#${c.id}</td>
         <td>${c.client_nom||'—'}</td>
@@ -457,7 +592,7 @@ async function loadOverview() {
         <td style="color:#3b8bfa;font-weight:700">${c.total}</td>
         <td style="color:var(--muted)">${c.methode_paiement}</td>
         <td><select class="tbl-select" onchange="updateCommande(${c.id},this.value)">${['En préparation','Expédiée','Livrée','Annulée'].map(s=>`<option ${s===c.statut?'selected':''}>${s}</option>`).join('')}</select></td>
-      </tr>`).join('')}</tbody></table>`
+      </tr>`).join('')}</tbody></table></div>`
     : `<div class="empty"><div class="ei">🛒</div>Aucune commande</div>`;
 
     const n = stats.messages_nonlus;
@@ -465,7 +600,7 @@ async function loadOverview() {
     badge.textContent   = n;
     badge.style.display = n > 0 ? '' : 'none';
   } catch (e) {
-    document.getElementById('statsGrid').innerHTML = `<div class="loading" style="color:#ff8a7a;">Erreur de chargement de la vue d'ensemble. Vérifiez le serveur et reconnectez-vous.</div>`;
+    document.getElementById('statsGrid').innerHTML = `<div class="loading" style="color:#ff8a7a;">Erreur de chargement. Vérifiez le serveur et reconnectez-vous.</div>`;
   }
 }
 

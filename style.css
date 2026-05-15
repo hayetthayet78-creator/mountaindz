@@ -29,10 +29,22 @@ html {
 }
 
 /* ── Scrollbar — style identique à restaurant ── */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #0d1f3c; }
-::-webkit-scrollbar-thumb { background: #3b8bfa; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #2a75e8; }
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d1f3c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b8bfa;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2a75e8;
+}
 
 body {
   font-family: var(--font-body);
@@ -2126,12 +2138,6 @@ body {
   }
 }
 
-/* ══════════════════════════════════════
-   ACCOUNT DROPDOWN
-   📌 COLLER À LA FIN de style.css
-      (ou boutique.css) pour que ça
-      s'applique à toutes les pages
-══════════════════════════════════════ */
 
 /* ── Wrapper ── */
 .account-wrap {
