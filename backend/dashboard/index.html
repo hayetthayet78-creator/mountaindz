@@ -420,6 +420,18 @@
 
 <div class="toast" id="toast"></div>
 
+<!-- Reply Modal -->
+<div id="replyModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.6); align-items:center; justify-content:center; backdrop-filter:blur(3px);">
+  <div style="background:var(--navy2); border:1px solid var(--border); border-radius:12px; padding:24px; width:400px; max-width:90vw; box-shadow:0 10px 40px rgba(0,0,0,0.5);">
+    <h3 style="margin-bottom:12px; font-size:1.1rem;">Répondre par Email</h3>
+    <textarea id="replyText" style="width:100%; height:120px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.14); border-radius:8px; color:#fff; padding:10px; margin-bottom:12px; font-family:inherit; resize:vertical; outline:none;" placeholder="Votre message..."></textarea>
+    <div style="display:flex; justify-content:flex-end; gap:8px;">
+      <button class="btn-refresh" onclick="closeReplyModal()">Annuler</button>
+      <button class="btn-login" style="width:auto; padding:8px 16px; margin:0;" onclick="sendReply()">Envoyer</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const API = (
   window.location.protocol === 'file:'
@@ -672,7 +684,10 @@ async function loadMessages() {
       </div>
       ${m.sujet?`<div class="msg-subject">${m.sujet}</div>`:''}
       <div class="msg-body">${m.message}</div>
-      ${!m.lu?`<button class="btn-mark-read" onclick="markRead(${m.id})">✓ Marquer comme lu</button>`:`<span style="font-size:.72rem;color:var(--muted);margin-top:6px;display:block">✓ Lu</span>`}
+      <div style="margin-top:10px; display:flex; align-items:center; gap:8px;">
+        ${!m.lu?`<button class="btn-mark-read" onclick="markRead(${m.id})">✓ Marquer comme lu</button>`:`<span style="font-size:.72rem;color:var(--muted);">✓ Lu</span>`}
+        <button class="btn-mark-read" onclick="openReplyModal('message', ${m.id})">↩ Répondre par Email</button>
+      </div>
     </div>`).join('');
 }
 
@@ -718,7 +733,10 @@ async function loadCandidatures() {
       <td style="color:var(--muted);font-size:.78rem">${c.email}</td>
       <td style="font-size:.78rem;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.message||'—'}</td>
       <td style="color:var(--muted)">${fmtDate(c.created_at)}</td>
-      <td><select class="tbl-select" onchange="updateCandidature(${c.id},this.value)">${['reçue','en_examen','acceptée','refusée'].map(s=>`<option ${s===c.statut?'selected':''}>${s}</option>`).join('')}</select></td>
+      <td>
+        <select class="tbl-select" onchange="updateCandidature(${c.id},this.value)">${['reçue','en_examen','acceptée','refusée'].map(s=>`<option ${s===c.statut?'selected':''}>${s}</option>`).join('')}</select>
+        <button class="btn-mark-read" style="margin-top:6px; display:block;" onclick="openReplyModal('candidature', ${c.id})">↩ Répondre</button>
+      </td>
     </tr>`).join('')}</tbody></table>`
   : `<div class="empty"><div class="ei">💼</div>Aucune candidature</div>`;
 }
@@ -727,6 +745,47 @@ async function loadCandidatures() {
 async function updateReservation(id, statut) { await apiPatch(`/admin/reservations/${id}`, { statut }); }
 async function updateCommande(id, statut)    { await apiPatch(`/admin/commandes/${id}`,    { statut }); }
 async function updateCandidature(id, statut) { await apiPatch(`/admin/candidatures/${id}`, { statut }); }
+
+let currentReplyContext = null;
+
+function openReplyModal(type, id) {
+  currentReplyContext = { type, id };
+  document.getElementById('replyText').value = '';
+  document.getElementById('replyModal').style.display = 'flex';
+}
+
+function closeReplyModal() {
+  document.getElementById('replyModal').style.display = 'none';
+  currentReplyContext = null;
+}
+
+async function sendReply() {
+  if (!currentReplyContext) return;
+  const reply = document.getElementById('replyText').value.trim();
+  if (!reply) {
+    showToast("Le message ne peut pas être vide.");
+    return;
+  }
+  
+  const { type, id } = currentReplyContext;
+  const endpoint = type === 'message' ? `/admin/messages/${id}/reply` : `/admin/candidatures/${id}/reply`;
+  
+  closeReplyModal();
+  showToast("Envoi en cours...");
+  
+  try {
+      const res = await apiFetch(endpoint, { method: 'POST', body: JSON.stringify({ replyMessage: reply }) });
+      const data = await res.json();
+      if (res.ok) {
+          showToast(data.message || 'Réponse envoyée avec succès');
+          if (type === 'message') loadMessages();
+      } else {
+          showToast("Erreur: " + data.error);
+      }
+  } catch (e) {
+      showToast("Erreur d'envoi");
+  }
+}
 
 // ══ HELPERS ══
 function fmtDate(str) {

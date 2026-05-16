@@ -1,9 +1,5 @@
-// ══════════════════════════════════════════════════════════
-//  MOUNTAINDZ BACKEND — server.js
-//  Stack: Node.js + Express + SQLite (no cloud needed)
-//  Run:   node server.js
-//  API:   http://localhost:3000
-// ══════════════════════════════════════════════════════════
+
+require('dotenv').config();
 
 const express = require('express');
 const Database = require('better-sqlite3');
@@ -11,6 +7,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const path = require('path');
+const { sendConfirmationEmail, sendStatusUpdateEmail, sendReplyEmail } = require('./mailer');
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
@@ -416,9 +413,13 @@ app.get('/api/admin/reservations', adminRequired, (req, res) => {
 });
 
 // PATCH /api/admin/reservations/:id
-app.patch('/api/admin/reservations/:id', adminRequired, (req, res) => {
+app.patch('/api/admin/reservations/:id', adminRequired, async (req, res) => {
   const { statut } = req.body;
   db.prepare('UPDATE reservations SET statut=? WHERE id=?').run(statut, req.params.id);
+  const r = db.prepare(`SELECT r.*, u.prenom||' '||u.nom as client_nom, u.email as client_email FROM reservations r LEFT JOIN users u ON r.user_id=u.id WHERE r.id=?`).get(req.params.id);
+  if (r && r.client_email) {
+    await sendStatusUpdateEmail(r.client_email, r, statut, 'reservation');
+  }
   res.json({ message: 'Mis à jour' });
 });
 
@@ -433,9 +434,13 @@ app.get('/api/admin/commandes', adminRequired, (req, res) => {
 });
 
 // PATCH /api/admin/commandes/:id
-app.patch('/api/admin/commandes/:id', adminRequired, (req, res) => {
+app.patch('/api/admin/commandes/:id', adminRequired, async (req, res) => {
   const { statut } = req.body;
   db.prepare('UPDATE commandes SET statut=? WHERE id=?').run(statut, req.params.id);
+  const c = db.prepare(`SELECT c.*, u.prenom||' '||u.nom as client_nom, u.email as client_email FROM commandes c LEFT JOIN users u ON c.user_id=u.id WHERE c.id=?`).get(req.params.id);
+  if (c && c.client_email) {
+    await sendStatusUpdateEmail(c.client_email, c, statut, 'commande');
+  }
   res.json({ message: 'Mis à jour' });
 });
 
@@ -451,6 +456,19 @@ app.patch('/api/admin/messages/:id/lu', adminRequired, (req, res) => {
   res.json({ message: 'Marqué comme lu' });
 });
 
+// POST /api/admin/messages/:id/reply
+app.post('/api/admin/messages/:id/reply', adminRequired, async (req, res) => {
+  const { replyMessage } = req.body;
+  const m = db.prepare('SELECT * FROM messages WHERE id=?').get(req.params.id);
+  if (m && m.email) {
+      await sendReplyEmail(m.email, m, replyMessage, 'message');
+      db.prepare('UPDATE messages SET lu=1 WHERE id=?').run(req.params.id);
+      res.json({ message: 'Réponse envoyée' });
+  } else {
+      res.status(404).json({ error: 'Message non trouvé' });
+  }
+});
+
 // GET /api/admin/candidatures
 app.get('/api/admin/candidatures', adminRequired, (req, res) => {
   const rows = db.prepare('SELECT * FROM candidatures ORDER BY created_at DESC').all();
@@ -458,10 +476,26 @@ app.get('/api/admin/candidatures', adminRequired, (req, res) => {
 });
 
 // PATCH /api/admin/candidatures/:id
-app.patch('/api/admin/candidatures/:id', adminRequired, (req, res) => {
+app.patch('/api/admin/candidatures/:id', adminRequired, async (req, res) => {
   const { statut } = req.body;
   db.prepare('UPDATE candidatures SET statut=? WHERE id=?').run(statut, req.params.id);
+  const c = db.prepare('SELECT * FROM candidatures WHERE id=?').get(req.params.id);
+  if (c && c.email) {
+    await sendStatusUpdateEmail(c.email, c, statut, 'candidature');
+  }
   res.json({ message: 'Mis à jour' });
+});
+
+// POST /api/admin/candidatures/:id/reply
+app.post('/api/admin/candidatures/:id/reply', adminRequired, async (req, res) => {
+  const { replyMessage } = req.body;
+  const c = db.prepare('SELECT * FROM candidatures WHERE id=?').get(req.params.id);
+  if (c && c.email) {
+      await sendReplyEmail(c.email, c, replyMessage, 'candidature');
+      res.json({ message: 'Réponse envoyée' });
+  } else {
+      res.status(404).json({ error: 'Candidature non trouvée' });
+  }
 });
 
 // ──────────────────────────────────────────────────────────
