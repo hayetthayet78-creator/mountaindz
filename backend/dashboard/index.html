@@ -433,11 +433,7 @@
 </div>
 
 <script>
-const API = (
-  window.location.protocol === 'file:'
-    ? 'http://localhost:3000/api'
-    : `${window.location.origin}/api`
-);
+const API = 'https://mountaindz-production-8a07.up.railway.app/api';
 
 let TOKEN = localStorage.getItem('mdz_admin_token') || localStorage.getItem('mdz_token');
 let currentPanel = 'overview';

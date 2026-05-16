@@ -381,11 +381,7 @@
   </div>
 
   <script>
-    const API = (
-      window.location.protocol === 'file:'
-        ? 'http://localhost:3000/api'
-        : `${window.location.origin}/api`
-    );
+    const API = 'https://mountaindz-production-8a07.up.railway.app/api';
     const returnTo = new URLSearchParams(location.search).get('return') || 'accueil.html';
     const errIcon = '⚠ ';
     const spinHTML = '<span class="spin">⏳</span> ';
@@ -398,11 +394,7 @@
     function redirect(user) {
       if (user && user.role === 'admin') {
         // Works for local file mode and deployed environments
-        window.location.href = (
-          window.location.protocol === 'file:'
-            ? 'http://localhost:3000/dashboard'
-            : `${window.location.origin}/dashboard`
-        );
+        window.location.href = 'https://mountaindz-production-8a07.up.railway.app/dashboard';
       } else {
         window.location.href = returnTo;
       }
