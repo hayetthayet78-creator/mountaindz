@@ -274,7 +274,7 @@ app.get('/api/auth/me', authRequired, (req, res) => {
 // ══════════════════════════════════════════════════════════
 
 // POST /api/reservations  — save from any page
-app.post('/api/reservations', authRequired, (req, res) => {
+app.post('/api/reservations', authRequired, async (req, res) => {
   const { type, titre, lieu, date_debut, date_fin, personnes, prix_total, icon, details } = req.body;
   if (!type || !titre) return res.status(400).json({ error: 'type et titre requis' });
 
@@ -283,6 +283,20 @@ app.post('/api/reservations', authRequired, (req, res) => {
     VALUES (?,?,?,?,?,?,?,?,?,?)
   `).run(req.user.id, type, titre, lieu || '', date_debut || '', date_fin || '',
     personnes || 1, prix_total || '', icon || '📅', JSON.stringify(details || {}));
+
+  // Send confirmation email
+  try {
+    const userRow = db.prepare('SELECT email, prenom, nom FROM users WHERE id=?').get(req.user.id);
+    if (userRow && userRow.email) {
+      await sendConfirmationEmail(userRow.email, {
+         nom: userRow.prenom + ' ' + (userRow.nom || ''),
+         activite: titre,
+         date: date_debut || 'Non spécifiée'
+      });
+    }
+  } catch (e) {
+    console.error("Failed to send confirmation email:", e);
+  }
 
   res.json({ id: result.lastInsertRowid, message: 'Réservation enregistrée' });
 });
